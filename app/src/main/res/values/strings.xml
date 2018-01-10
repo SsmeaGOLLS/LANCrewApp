@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LAN-Crew-App</string>
+    <string-array name="options">
+
+        <item>Profile</item>
+        <item>Log out</item>
+
+    </string-array>
 </resources>
