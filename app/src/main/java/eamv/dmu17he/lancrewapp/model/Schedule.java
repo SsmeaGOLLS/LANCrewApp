@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Schedule {
 
     @PrimaryKey(autoGenerate = true)
-    private int event_ID;
+    private int id;
 
     @ColumnInfo(name = "startTime")
     private LocalDateTime startTime;
@@ -32,12 +32,10 @@ public class Schedule {
     private String name;
 
     public int getId(){
-        return event_ID;
+        return id;
     }
 
-    public void setId(int id){
-        this.event_ID = id;
-    }
+    public void setId(int id){this.id = id;}
 
     public LocalDateTime getStartTime(){
         return startTime;
@@ -69,7 +67,7 @@ public class Schedule {
 
     public void setTitle(String title){this.title = title;}
 
-    public String setName() { return name;}
+    public String getName() { return name;}
 
     public void setName (String name) { this.name = name; }
 

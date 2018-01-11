@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="eamv.dmu17he.lancrewapp.activities.ContactsActivity">
+
+    <TextView
+        android:id="@+id/contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Contacts"
+        android:textColor="#000"
+        android:textSize="36dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/headline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="190dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        android:text="When are you sick?"
+        android:textColor="#000"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/description1"
+        android:layout_width="341dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="106dp"
+        android:text="When you are unable to work because of your own illness, which is not self-inflicted. Your employer may require documentation."
+        android:textColor="#383434"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/headline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="150dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="170dp"
+        android:text="Call in sick immediately"
+        android:textColor="#000"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/description2"
+        android:layout_width="332dp"
+        android:layout_height="77dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="197dp"
+        android:text="You must always call in sick as soon as possible.
+If your employer has not set a specific time, you must call before your normal meeting time, preferably the day before."
+        android:textColor="#383434"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/headline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="150dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="282dp"
+        android:text="Inform your crewleader"
+        android:textColor="#000"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/description3"
+        android:layout_width="300dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="309dp"
+        android:text="You have to tell which tasks you are not able to perform because of your illness and how long you expect it to last."
+        android:textColor="#383434"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="390dp"
+        android:text="Contact info"
+        android:textColor="#000"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
