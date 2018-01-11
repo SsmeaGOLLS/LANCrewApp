@@ -37,22 +37,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-      /*  button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final PopupMenu popupMenu = new PopupMenu(MainActivity.this, button);
-                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
-
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(MainActivity.this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                });
-            }
-        });*/
     }
 
     private void goToScheduleActivity(){

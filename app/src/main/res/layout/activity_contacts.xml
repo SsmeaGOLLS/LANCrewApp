@@ -84,7 +84,7 @@ If your employer has not set a specific time, you must call before your normal m
         android:layout_marginEnd="150dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="282dp"
-        android:text="Inform your responsible"
+        android:text="Inform your crewleader"
         android:textColor="#000"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
