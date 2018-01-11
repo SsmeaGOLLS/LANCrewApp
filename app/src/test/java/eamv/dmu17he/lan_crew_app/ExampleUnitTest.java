@@ -1,4 +1,4 @@
-package eamv.dmu17he.lancrewapp;
+package eamv.dmu17he.lan_crew_app;
 
 import org.junit.Test;
 
