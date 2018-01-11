@@ -4,75 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eamv.dmu17he.lancrewapp.activities.CreateHall">
+    tools:context="eamv.dmu17he.lancrewapp.activities.EditHall">
 
     <TextView
-        android:id="@+id/createHall"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="Create Hall"
+        android:text="Edit Hall"
         android:textSize="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/hallName"
+        android:id="@+id/edithallname"
         android:layout_width="wrap_content"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Hall name"
-        android:maxLines="1"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createHall"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:text="Hall name" />
 
     <EditText
-        android:id="@+id/numberOfRows"
+        android:id="@+id/editnumberofrows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Number of rows"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hallName"
+        app:layout_constraintTop_toBottomOf="@+id/edithallname"
         tools:text="Number of rows" />
 
     <EditText
-        android:id="@+id/numberOfColumns"
+        android:id="@+id/editnumberofcolumns"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="Number of columns"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfRows"
+        app:layout_constraintTop_toBottomOf="@+id/editnumberofrows"
         tools:text="Number of columns" />
 
     <Button
-        android:id="@+id/createbutton"
+        android:id="@+id/savechangebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Create"
+        android:layout_marginTop="8dp"
+        android:text="Save changes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editnumberofcolumns"
+        app:layout_constraintVertical_bias="0.509" />
 </android.support.constraint.ConstraintLayout>

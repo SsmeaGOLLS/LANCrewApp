@@ -6,7 +6,7 @@
     android:background="@color/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eamv.dmu17he.LANCrewApp.activities.LoginActivity">
+    tools:context="eamv.dmu17he.lancrewapp.activities.LoginActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"

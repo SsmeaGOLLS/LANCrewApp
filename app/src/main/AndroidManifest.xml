@@ -9,24 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.LoginActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.RegisterActivity"
+        <activity
+            android:name=".activities.RegisterActivity"
             android:screenOrientation="portrait" />
-        
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.UsersActivity"
+        <activity
+            android:name=".activities.UsersActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.ActivityWakeUp" />
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.Administrate" />
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.BookAWakeUp" />
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.BookingOverview" />
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.CreateHall" />
+        <activity android:name=".activities.ActivityWakeUp" />
+        <activity android:name=".activities.Administrate" />
+        <activity android:name=".activities.BookAWakeUp" />
+        <activity android:name=".activities.BookingOverview" />
+        <activity android:name=".activities.CreateHall" />
+        <activity android:name=".activities.EditHall" />
+        <activity android:name=".activities.Bookings"></activity>
     </application>
 
 </manifest>
