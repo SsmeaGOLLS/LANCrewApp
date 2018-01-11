@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="eamv.dmu17he.lan_crew_app">
+    package="eamv.dmu17he.LANCrewApp">
 
     <application
         android:allowBackup="true"
@@ -9,15 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".ActivityWakeUp">
+=======
+        <activity android:name="eamv.dmu17he.LANCrewApp.activities.LoginActivity">
+>>>>>>> master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".BookAWakeUp" />
         <activity android:name=".BookingOverview"></activity>
+=======
+        
+        <activity android:name="eamv.dmu17he.LANCrewApp.activities.RegisterActivity"
+            android:screenOrientation="portrait" />
+        
+        <activity android:name="eamv.dmu17he.LANCrewApp.activities.UsersActivity"
+            android:screenOrientation="portrait" />
+>>>>>>> master
     </application>
 
 </manifest>

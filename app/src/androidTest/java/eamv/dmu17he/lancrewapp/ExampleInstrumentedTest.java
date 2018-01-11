@@ -1,4 +1,4 @@
-package eamv.dmu17he.lan_crew_app;
+package eamv.dmu17he.lancrewapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("eamv.dmu17he.lan_crew_app", appContext.getPackageName());
+        assertEquals("eamv.dmu17he.lancrewappprototype", appContext.getPackageName());
     }
 }
