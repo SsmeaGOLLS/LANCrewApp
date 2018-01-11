@@ -4,47 +4,22 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Spinner spinner;
-    ArrayAdapter<CharSequence> adapter;
-
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        spinner = (Spinner) findViewById(R.id.spinner);
-        adapter = ArrayAdapter.createFromResource(this, R.array.options,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-               /*   switch(i){
-                      case 0:
-                           goToProfileActivity();
-                        case 1:
-                             goToContactsActivity();
-                      } */
-
-                Toast.makeText(getBaseContext(), adapterView.getItemIdAtPosition(i) + " selected", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
 
         Button schedule = (Button) findViewById(R.id.schedule);
         schedule.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +36,25 @@ public class MainActivity extends AppCompatActivity {
                 goToContactsActivity();
             }
         });
+
+      /*  button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final PopupMenu popupMenu = new PopupMenu(MainActivity.this, button);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(MainActivity.this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+            }
+        });*/
     }
+
     private void goToScheduleActivity(){
         Intent intent = new Intent(this, ScheduleActivity.class);
         startActivity(intent);
@@ -77,4 +70,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
+
+
 }
