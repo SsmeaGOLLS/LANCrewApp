@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="eamv.dmu17he.LANCrewApp">
+    package="eamv.dmu17he.lancrewapp">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="eamv.dmu17he.LANCrewApp.activities.LoginActivity">
+        <activity android:name="eamv.dmu17he.lancrewapp.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,10 +17,10 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="eamv.dmu17he.LANCrewApp.activities.RegisterActivity"
+        <activity android:name="eamv.dmu17he.lancrewapp.activities.RegisterActivity"
             android:screenOrientation="portrait" />
         
-        <activity android:name="eamv.dmu17he.LANCrewApp.activities.UsersActivity"
+        <activity android:name="eamv.dmu17he.lancrewapp.activities.UsersActivity"
             android:screenOrientation="portrait" />
     </application>
 
