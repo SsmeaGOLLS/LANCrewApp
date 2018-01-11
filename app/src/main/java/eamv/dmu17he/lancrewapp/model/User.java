@@ -20,7 +20,17 @@ public class User {
     @ColumnInfo(name = "password")
     private String password;
 
+    @ColumnInfo(name = "phoneNumber")
+    private int phoneNumber;
 
+    @ColumnInfo(name = "initials")
+    private String initials;
+
+    @ColumnInfo(name = "nickName")
+    private String nickName;
+
+    //@ColumnInfo(name = "Crew")
+    //private String crew;
 
     public int getId(){
         return id;
@@ -53,6 +63,28 @@ public class User {
     public void setPassword(String password){
         this.password = password;
     }
+
+    public int getPhoneNumber(){
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getInitials() { return initials; }
+
+    public void setInitials(String initials){
+        this.initials = initials;
+    }
+
+    public String getNickName(){ return nickName; }
+
+    public void setNickName (String nickname) {this.nickName = nickName;}
+
+    //public String getCrew() {return crew;}
+
+    //public void setCrew(String crew) {this.crew = crew;}
 
 
     public User(){}
