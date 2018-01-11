@@ -1,4 +1,4 @@
-package eamv.dmu17he.lancrewappprototype.activities;
+package eamv.dmu17he.lancrewapp.activities;
 
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
@@ -12,10 +12,10 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 
-import eamv.dmu17he.lancrewappprototype.R;
-import eamv.dmu17he.lancrewappprototype.helper.InputValidation;
-import eamv.dmu17he.lancrewappprototype.model.User;
-import eamv.dmu17he.lancrewappprototype.sql.sqLiteDatabase;
+import eamv.dmu17he.lancrewapp.R;
+import eamv.dmu17he.lancrewapp.helper.InputValidation;
+import eamv.dmu17he.lancrewapp.model.User;
+import eamv.dmu17he.lancrewapp.sql.sqLiteDatabase;
 //import eamv.dmu17he.lancrewappprototype.sql.DBHelper;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {

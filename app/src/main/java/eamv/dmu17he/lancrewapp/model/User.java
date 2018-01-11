@@ -1,4 +1,4 @@
-package eamv.dmu17he.lancrewappprototype.model;
+package eamv.dmu17he.lancrewapp.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
