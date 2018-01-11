@@ -102,10 +102,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         if (!(validUser==null) && validUser.equals(textInputEditTextUsername.getText().toString())){
-            Intent accountsIntent = new Intent(activity, UsersActivity.class);
-            accountsIntent.putExtra("USERNAME", textInputEditTextUsername.getText().toString().trim());
-            emptyInputEditText();
-            startActivity(accountsIntent);
+            Intent menuIntent = new Intent(activity, MenuActivity.class);
+            startActivity(menuIntent);
 
         }
         else {
