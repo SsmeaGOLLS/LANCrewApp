@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import eamv.dmu17he.lancrewapp.R;
 
-public class Bookings extends AppCompatActivity {
+public class PickSpace extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookings);
+        setContentView(R.layout.activity_pickspace);
     }
 }
