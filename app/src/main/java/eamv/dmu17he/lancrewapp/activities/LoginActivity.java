@@ -11,7 +11,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.helper.InputValidation;
@@ -47,7 +46,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initViews();
         initListeners();
         initObjects();
-
     }
     private void initViews(){
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
@@ -104,16 +102,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         if (!(validUser==null) && validUser.equals(textInputEditTextUsername.getText().toString())){
-            Intent accountsIntent = new Intent(activity, UsersActivity.class);
-            accountsIntent.putExtra("USERNAME", textInputEditTextUsername.getText().toString().trim());
-            emptyInputEditText();
-            startActivity(accountsIntent);
+            Intent menuIntent = new Intent(activity, MenuActivity.class);
+            startActivity(menuIntent);
 
         }
         else {
             Snackbar.make(nestedScrollView, getString(R.string.error_valid_username_password), Snackbar.LENGTH_LONG).show();
         }
-        }
+    }
 
 
 
@@ -121,5 +117,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textInputEditTextUsername.setText(null);
         textInputEditTextPassword.setText(null);
     }
-
 }
