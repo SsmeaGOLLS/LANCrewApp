@@ -31,6 +31,9 @@ public class Schedule {
     @ColumnInfo (name = "name")
     private String name;
 
+    @ColumnInfo (name = "gaName")
+    private String gaName;
+
     public int getId(){
         return id;
     }
@@ -70,5 +73,14 @@ public class Schedule {
     public String getName() { return name;}
 
     public void setName (String name) { this.name = name; }
+
+    public String getGaName() { return gaName;}
+
+    public void setGaName (String gaName) { this.gaName = gaName; }
+
+    @Override
+    public String toString(){
+        return date + " " + "Start Time: " + startTime + ", End Time: " + endTime + "\n" + title + " " + name;
+    }
 
 }
