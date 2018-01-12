@@ -48,5 +48,6 @@
         android:singleLine="false"
         android:text="Name"
         tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="195dp" />
+        tools:layout_editor_absoluteY="195dp"
+        />
 </android.support.constraint.ConstraintLayout>
