@@ -8,15 +8,15 @@ import java.util.ArrayList;
  */
 public class Hall {
     private int id;
-    private String name;
+    private String hallName;
     private ArrayList<Space> spaces = new ArrayList<Space>();
     private int numberOfColumns;
     private int numberOfRows;
 
-    public Hall(String name, int numberOfColumns, int numberOfRows){
-        this.setName(name);
-        this.setNumberOfColumns(numberOfColumns);
-        this.setNumberOfRows(numberOfRows);
+    public Hall(String hallName, int numberOfColumns, int numberOfRows){
+        this.hallName = hallName;
+        this.numberOfRows = numberOfRows;
+        this.numberOfColumns = numberOfColumns;
 
         for(int row = 0; row < this.getNumberOfRows(); row++){
             for(int column = 0; column<numberOfColumns; column++){
@@ -38,12 +38,12 @@ public class Hall {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getHallName() {
+        return hallName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
     }
 
     public ArrayList<Space> getSpaces() {
@@ -70,10 +70,10 @@ public class Hall {
         this.numberOfRows = numberOfRows;
     }
 
-    public LocalDateTime getSpaceByColumnRow(int column, int row){
+    public Space getSpaceByUserName(String userName){
         for(Space s : spaces){
-            if (s.getRow() == row && s.getColumn() == column)
-                return s.getTime();
+            if (s.getUserName() == userName)
+                return s;
         }
         return null;
     }
