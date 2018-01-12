@@ -30,7 +30,8 @@
         <activity android:name=".activities.EditHall" />
         <activity android:name=".activities.PickSpace" />
         <activity android:name=".activities.DeleteHall" />
-        <activity android:name=".activities.ChooseEditOrDelete"></activity>
+        <activity android:name=".activities.ChooseEditOrDelete" />
+        <activity android:name=".activities.WakeUpDetails"></activity>
     </application>
 
 </manifest>

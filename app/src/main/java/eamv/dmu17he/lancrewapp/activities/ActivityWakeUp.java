@@ -8,16 +8,13 @@ import android.view.View;
 import android.widget.Button;
 
 import eamv.dmu17he.lancrewapp.R;
-import eamv.dmu17he.lancrewapp.activities.Administrate;
-import eamv.dmu17he.lancrewapp.activities.BookAWakeUp;
-import eamv.dmu17he.lancrewapp.activities.BookingOverview;
 
 public class ActivityWakeUp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wake_up);
+        setContentView(R.layout.activity_Start_wake_up);
 
         Button bookwakeup = findViewById(R.id.BookWakeUp);
         bookwakeup.setOnClickListener(new View.OnClickListener() {
