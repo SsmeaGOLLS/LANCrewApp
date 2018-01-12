@@ -28,7 +28,9 @@
         <activity android:name=".activities.BookingOverview" />
         <activity android:name=".activities.CreateHall" />
         <activity android:name=".activities.EditHall" />
-        <activity android:name=".activities.PickSpace"></activity>
+        <activity android:name=".activities.PickSpace" />
+        <activity android:name=".activities.DeleteHall" />
+        <activity android:name=".activities.ChooseEditOrDelete"></activity>
     </application>
 
 </manifest>
