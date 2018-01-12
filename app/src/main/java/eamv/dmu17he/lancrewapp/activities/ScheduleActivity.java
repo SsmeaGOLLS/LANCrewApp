@@ -5,6 +5,7 @@ import android.arch.persistence.db.SupportSQLiteOpenHelper;
 import android.arch.persistence.room.DatabaseConfiguration;
 import android.arch.persistence.room.InvalidationTracker;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -91,11 +92,19 @@ public class ScheduleActivity extends AppCompatActivity {
 
         for(Schedule item : listSchedules){
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            TextView titleView = new TextView(this);
+            titleView.setLayoutParams(params);
+            titleView.setText(item.getTitle());
+            titleView.setTextSize(20f);
+            titleView.setTextColor(Color.BLACK);
             TextView textView = new TextView(this);
             textView.setLayoutParams(params);
             textView.setText(item.toString());
+            textView.setTextColor(Color.BLACK);
+            list.addView(titleView);
             list.addView(textView);
-            
+
+
 
         }
         //System.out.println(listSchedules.get(0));
