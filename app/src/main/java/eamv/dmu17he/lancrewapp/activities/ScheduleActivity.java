@@ -27,6 +27,8 @@ import eamv.dmu17he.lancrewapp.sql.userDAO;
 
 public class ScheduleActivity extends AppCompatActivity {
 
+    sqLiteDatabase db = sqLiteDatabase.getDatabase(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +42,28 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
 
-    }
+        List<Schedule> listSchedules = db.sDAO().getAll();
+        LinearLayout list = (LinearLayout) this.findViewById(R.id.list);
+        list.removeAllViews();
 
+        for (Schedule item : listSchedules) {
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            TextView titleView = new TextView(this);
+            titleView.setLayoutParams(params);
+            titleView.setText(item.getTitle());
+            titleView.setTextSize(20f);
+            titleView.setTextColor(Color.BLACK);
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(params);
+            textView.setText(item.toString());
+            textView.setTextColor(Color.BLACK);
+            list.addView(titleView);
+            list.addView(textView);
+
+        }
+    }
     public  void postDataToSDAO(){
 
-        sqLiteDatabase db = sqLiteDatabase.getDatabase(this);
         db.sDAO().deleteTable();
 
         Schedule schedule = new Schedule();
@@ -85,7 +104,6 @@ public class ScheduleActivity extends AppCompatActivity {
         db.sDAO().insertSchedule(schedule2);
         db.sDAO().insertSchedule(schedule3);
 
-
         List<Schedule> listSchedules = db.sDAO().getAll();
         LinearLayout list = (LinearLayout) this.findViewById(R.id.list);
         list.removeAllViews();
@@ -105,15 +123,11 @@ public class ScheduleActivity extends AppCompatActivity {
             list.addView(textView);
 
 
-
         }
         //System.out.println(listSchedules.get(0));
 
         //TextView textelement = (TextView) findViewById(R.id.pissefed);
         //textelement.setText(listSchedules.get(0).toString());
-
-
-
 
     }
     private void goToContactsActivity(){
