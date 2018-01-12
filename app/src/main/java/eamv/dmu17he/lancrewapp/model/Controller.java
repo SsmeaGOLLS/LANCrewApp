@@ -10,31 +10,55 @@ import java.util.ArrayList;
 public class Controller {
     ArrayList<Hall> halls = new ArrayList<Hall>();
 
+
+    // set comment , row, column, hallname,
+
+
+
+
+
+
     public int getNumberOfHalls(){
         return halls.size();
     }
 
-    public int getSpaces(int hallIndex){
+    public int getNumberOfSpacesInHall(int hallIndex){
         return halls.get(hallIndex).getSizeOfSpaces();
     }
 
+    public ArrayList<Integer> getColumnRowNumber(String hallName, String userName){
+        ArrayList<Integer> temp = new ArrayList<Integer>();
+        Space tempSpace = getHallByName(hallName).getSpaceByUserName(userName);
+        temp.add(tempSpace.getColumn());
+        temp.add(tempSpace.getRow());
+        return temp;
+    }
+
     public String getHallName(int hallIndex) {
-        return halls.get(hallIndex).getName();
+        return halls.get(hallIndex).getHallName();
     }
 
-    public LocalDateTime getTimeByWakeUpId(int hallIndex, int column, int row){
-        return halls.get(hallIndex).getSpaceByColumnRow(column, row);
+    public LocalDateTime getTimeByHallNameUserName(String hallName, String userName){
+        return getHallByName(hallName).getSpaceByUserName(userName).getTime();
     }
 
+    private Hall getHallByName(String hallName){
+        for(Hall h: halls){
+            if(h.getHallName() == hallName){
+                return h;
+            }
+        }
+        return null;
+    }
 
-
+    // hallName, time, row, column
 
     private void addEntity(String hallName, int column, int row, String userName, LocalDateTime time, String comment, int pokeCounter){
-        Entity h = new Entity(hallName, column, row, userName, time, comment, pokeCounter);
+        SleepingSpaceEntity h = new SleepingSpaceEntity(hallName, column, row, userName, time, comment, pokeCounter);
     }
 
     private void getEntity(String hallName, int column, int row, String userName, LocalDateTime time, String comment, int pokeCounter){
-        Entity h = new Entity(hallName, column, row, userName, time, comment, pokeCounter);
+        SleepingSpaceEntity h = new SleepingSpaceEntity(hallName, column, row, userName, time, comment, pokeCounter);
     }
 
 
