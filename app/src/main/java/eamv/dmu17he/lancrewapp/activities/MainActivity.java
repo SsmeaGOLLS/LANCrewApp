@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     private void goToProfileActivity(){
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);

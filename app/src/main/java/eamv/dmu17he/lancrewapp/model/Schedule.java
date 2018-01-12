@@ -80,7 +80,7 @@ public class Schedule {
 
     @Override
     public String toString(){
-        return date + " " + "Start Time: " + startTime + ", End Time: " + endTime + "\n" + title + " " + name;
+        return title + "\n" + date + "\n" + startTime + "\n" + endTime + "\n" + name + "\n GA: " + gaName;
     }
 
 }
