@@ -9,12 +9,24 @@ import java.util.ArrayList;
 
 public class Controller {
     ArrayList<Hall> halls = new ArrayList<Hall>();
-
+    EntityTranslator et = EntityTranslator.getInstance();
 
     // set comment , row, column, hallname,
 
+    public void makeHall(String hallName, int numberOfColumns, int numberOfRows){
+        halls.add(new Hall(hallName, numberOfColumns, numberOfRows));
+    }
+
+    public void makeWakeUp(String hallName, String userName, LocalDateTime time, String comment){
+        getHallByName(hallName).getSpaceByUserName(userName).setWakeUp(new WakeUp(time, comment));
+        et.addWakeUp(userName, time, comment);
+    }
 
 
+
+
+
+    
 
 
 
