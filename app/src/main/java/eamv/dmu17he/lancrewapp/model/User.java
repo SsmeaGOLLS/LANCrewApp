@@ -29,6 +29,9 @@ public class User {
     @ColumnInfo(name = "nickName")
     private String nickName;
 
+    @ColumnInfo(name = "isAdmin")
+    private boolean isAdmin;
+
     //@ColumnInfo(name = "Crew")
     //private String crew;
 
@@ -81,6 +84,10 @@ public class User {
     public String getNickName(){ return nickName; }
 
     public void setNickName (String nickname) {this.nickName = nickName;}
+
+    public boolean getIsAdmin() { return isAdmin; }
+
+    public void setIsAdmin(boolean isAdmin) {this.isAdmin = isAdmin; }
 
     //public String getCrew() {return crew;}
 

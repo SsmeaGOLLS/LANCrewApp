@@ -17,13 +17,13 @@ public class Schedule {
     private int id;
 
     @ColumnInfo(name = "startTime")
-    private LocalDateTime startTime;
+    private String startTime;
 
     @ColumnInfo (name = "endTime")
-    private LocalDateTime endTime;
+    private String endTime;
 
     @ColumnInfo (name = "date")
-    private LocalDateTime date;
+    private String date;
 
     @ColumnInfo (name = "title")
     private String title;
@@ -37,27 +37,27 @@ public class Schedule {
 
     public void setId(int id){this.id = id;}
 
-    public LocalDateTime getStartTime(){
+    public String getStartTime(){
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime){
+    public void setStartTime(String startTime){
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime(){
+    public String getEndTime(){
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime){
+    public void setEndTime(String endTime){
         this.endTime = endTime;
     }
 
-    public LocalDateTime getDate(){
+    public String getDate(){
         return date;
     }
 
-    public void setDate(LocalDateTime date){
+    public void setDate(String date){
         this.date = date;
     }
 

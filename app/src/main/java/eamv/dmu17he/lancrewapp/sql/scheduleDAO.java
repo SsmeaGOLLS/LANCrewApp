@@ -36,9 +36,7 @@ public interface scheduleDAO {
     @Query("DELETE FROM Schedule")
     public void deleteTable();
 
-    @Query("SELECT * FROM Schedule WHERE name LIKE :uname")
-    public User findUserFromName(String uname);
+    // @Query("SELECT * FROM Schedule WHERE name LIKE :uname")
+   // public User findUserFromName(String uname);
 
-   // @Query("SELECT * FROM Schedule")
-   // public Schedule
 }
