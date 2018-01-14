@@ -129,10 +129,12 @@
         android:id="@+id/columnTextOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="308dp"
+        android:layout_marginEnd="292dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/overviewcolumn"
         app:layout_constraintTop_toBottomOf="@+id/rowTextOverview" />
 
     <TextView
