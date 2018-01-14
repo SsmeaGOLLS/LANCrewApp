@@ -14,7 +14,7 @@ public class ActivityWakeUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_Start_wake_up);
+        setContentView(R.layout.activity_start_wake_up);
 
         Button bookwakeup = findViewById(R.id.BookWakeUp);
         bookwakeup.setOnClickListener(new View.OnClickListener() {
