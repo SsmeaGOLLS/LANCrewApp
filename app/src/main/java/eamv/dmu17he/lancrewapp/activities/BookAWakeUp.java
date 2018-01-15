@@ -10,6 +10,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.MobileServiceException;
+import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
+import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
+import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileServiceLocalStoreException;
+import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
+import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,7 +26,9 @@ import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 import eamv.dmu17he.lancrewapp.R;
+import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
 import eamv.dmu17he.lancrewapp.helper.DateTimeAdapter;
+import eamv.dmu17he.lancrewapp.helper.ToDialogError;
 import eamv.dmu17he.lancrewapp.model.Controller;
 
 public class BookAWakeUp extends AppCompatActivity {
@@ -26,7 +37,7 @@ public class BookAWakeUp extends AppCompatActivity {
     private MobileServiceTable <Calendar> mTable;
     private AzureServiceAdapter mAzureAdapter;
     private MobileServiceClient mClient;
-    private ScheduleAdapter mScheduleAdapter;
+    private DateTimeAdapter mScheduleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,28 +61,48 @@ public class BookAWakeUp extends AppCompatActivity {
 
     }
     public void additem (View view){
-        if(mClient == null){
+        if (mClient == null) {
             return;
         }
+
+        final Calendar name = Calendar.getInstance();
+        name.set(1991, 10, 12, 23, 10);
         final Activity mActivity = this;
 
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(1996,10,05,22,45);
+        // Insert the new item
+        @SuppressLint("StaticFieldLeak") //Just to suppress warning
+                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
 
-        @SuppressLint("StaticFieldLeak")
-        AsyncTask<Void,Void,Void> task = (params)->{
-            try{
-                final Calendar entity = addItemInTabel(calendar);
-                runOnUiThread(()->{
-                    mDateTimeAdapter.add(entity);
+                    final Calendar entity = addItemInTable(name);
+                    /*
+                    final Schedule entity1 = addItemInTable(schedule1);
+                    final Schedule entity2 = addItemInTable(schedule2);
+                    final Schedule entity3 = addItemInTable(schedule3);
+                    */
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mScheduleAdapter.add(entity);
+
+                        }
                     });
-            } catch(final Exception e){
-
+                } catch (final Exception e) {
+                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
+                    e.printStackTrace();
+                }
+                return null;
             }
-            return null;
         };
         runAsyncTask(task);
     }
+    public Calendar addItemInTable(Calendar item) throws ExecutionException, InterruptedException {
+        Calendar entity = mTable.insert(item).get();
+        return entity;
+
     public AsyncTask<Void, Void, Void> runAsyncTask(AsyncTask<Void, Void, Void> task){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
             return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -88,7 +119,7 @@ public class BookAWakeUp extends AppCompatActivity {
         mAzureAdapter = AzureServiceAdapter.getInstance();
         mAzureAdapter.updateClient(this, this, mProgressBar);
         mClient = mAzureAdapter.getClient();
-        mScheduleAdapter = new ScheduleAdapter(this, R.layout.activity_book_awake_up);
+        mScheduleAdapter = new DateTimeAdapter(this, R.layout.activity_book_awake_up);
         mTable = mClient.getTable (BookAWakeUp.class);
 
     }
