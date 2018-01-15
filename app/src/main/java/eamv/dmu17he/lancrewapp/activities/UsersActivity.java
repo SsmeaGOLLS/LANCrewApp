@@ -23,35 +23,21 @@ public class UsersActivity extends AppCompatActivity {
     private TextView textViewName;
     private User user;
     sqLiteDatabase db = sqLiteDatabase.getDatabase(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-        getadminuser();
+
 
         textViewName = (TextView) findViewById(R.id.text1);
         String nameFromIntent = getIntent().getStringExtra("USERNAME");
         textViewName.setText("Welcome " + nameFromIntent);
 
 
-
-        TextView textviewi= (TextView) findViewById(R.id.adminName);
-        textviewi.setText("" + user.getName());
-        }
-
-    public void getadminuser(){
-
-        sqLiteDatabase db = sqLiteDatabase.getDatabase(this);
-        user.setName("daniel cocksucker");
-        user.setPhoneNumber(84989846);
-
-        System.out.print(user);
     }
 
-
-    }
-
-
+}
 
 
 

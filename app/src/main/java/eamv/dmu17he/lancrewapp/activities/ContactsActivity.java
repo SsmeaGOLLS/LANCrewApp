@@ -44,13 +44,13 @@ public class ContactsActivity extends AppCompatActivity {
         user.setName("Daniel Jensen");
         user.setPhoneNumber(22868576);
         user.setNickName("FerieDreng");
-
+        user.setIsAdmin(true);
 
         User user1 = new User();
         user1.setName("Jonas Kjeldgaard");
         user1.setPhoneNumber(98728576);
         user1.setNickName("PutIRøvManden");
-
+        user1.setIsAdmin(true);
 
         User user2 = new User();
         user2.setName("Mikkel Nielsen");
@@ -83,8 +83,5 @@ public class ContactsActivity extends AppCompatActivity {
         }
 
     }
-
-
-
 
 }

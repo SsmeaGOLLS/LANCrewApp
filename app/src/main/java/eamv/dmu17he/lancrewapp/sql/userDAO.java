@@ -36,4 +36,7 @@ public interface userDAO
     @Query("SELECT * FROM USER WHERE username LIKE :uname")
     public User findUserFromName(String uname);
 
+   // @Query("SELECT name, phoneNumber FROM USER WHERE isAdmin = true")
+   // public
+
 }

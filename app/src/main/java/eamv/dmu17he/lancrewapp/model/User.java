@@ -95,7 +95,7 @@ public class User {
 
     @Override
     public String toString(){
-        return "Name : " + name + "\n Number: " + phoneNumber;
+        return "Name : " + name + "\nNumber: " + phoneNumber;
     }
 
     public User(){}
