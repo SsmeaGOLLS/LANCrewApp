@@ -7,7 +7,7 @@ import java.util.Calendar;
  * Created by alexj on 1/11/2018.
  */
 
-class WakeUp {
+public class WakeUp {
     private int pokeCounter;
     private int id;
     private Calendar time;
