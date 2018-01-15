@@ -1,6 +1,7 @@
 package eamv.dmu17he.lancrewapp.model;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 /**
  * Created by alexj on 1/11/2018.
@@ -58,7 +59,7 @@ public class Space {
         this.row = row;
     }
 
-    public LocalDateTime getTime(){
+    public Calendar getTime(){
         return this.wakeUp.getTime();
     }
 }

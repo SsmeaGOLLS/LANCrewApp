@@ -1,6 +1,7 @@
 package eamv.dmu17he.lancrewapp.model;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 /**
  * Created by alexj on 1/11/2018.
@@ -9,10 +10,10 @@ import java.time.LocalDateTime;
 class WakeUp {
     private int pokeCounter;
     private int id;
-    private LocalDateTime time;
+    private Calendar time;
     private String comment;
 
-    public WakeUp(LocalDateTime time, String comment){
+    public WakeUp(Calendar time, String comment){
         this.setTime(time);
         this.setComment(comment);
     }
@@ -34,11 +35,11 @@ class WakeUp {
         this.id = id;
     }
 
-    public LocalDateTime getTime() {
+    public Calendar getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Calendar time) {
         this.time = time;
     }
 

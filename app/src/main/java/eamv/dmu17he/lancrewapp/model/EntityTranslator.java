@@ -1,6 +1,7 @@
 package eamv.dmu17he.lancrewapp.model;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 /**
  * Created by alexj on 1/12/2018.
@@ -19,7 +20,7 @@ class EntityTranslator {
     private EntityTranslator() {
     }
 
-    public void addWakeUp(String userName, LocalDateTime time, String comment) {
+    public void addWakeUp(String userName, Calendar time, String comment) {
 
     }
 }

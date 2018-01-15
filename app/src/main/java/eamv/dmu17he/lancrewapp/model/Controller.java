@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by alexj on 1/11/2018.
@@ -22,7 +23,7 @@ public class Controller {
 
     }
 
-    public void makeWakeUp(String hallName, String userName, LocalDateTime time, String comment){
+    public void makeWakeUp(String hallName, String userName, Calendar time, String comment){
         getHallByName(hallName).getSpaceByUserName(userName).setWakeUp(new WakeUp(time, comment));
         et.addWakeUp(userName, time, comment);
     }
@@ -55,7 +56,7 @@ public class Controller {
         return halls.get(hallIndex).getHallName();
     }
 
-    public LocalDateTime getTimeByHallNameUserName(String hallName, String userName){
+    public Calendar getTimeByHallNameUserName(String hallName, String userName){
         return getHallByName(hallName).getSpaceByUserName(userName).getTime();
     }
 
