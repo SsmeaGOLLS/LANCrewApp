@@ -98,7 +98,6 @@ public class User {
         return "Name : " + name + "\n Number: " + phoneNumber;
     }
 
-
     public User(){}
 
 

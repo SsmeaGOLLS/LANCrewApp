@@ -23,6 +23,7 @@ public class ContactsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+
         Button insert = (Button) findViewById(R.id.insert);
         insert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +32,8 @@ public class ContactsActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     public void postDataToUDAO(){
@@ -80,5 +83,8 @@ public class ContactsActivity extends AppCompatActivity {
         }
 
     }
+
+
+
 
 }
