@@ -12,7 +12,6 @@ import java.util.Calendar;
 
 public class Controller {
     ArrayList<Hall> halls = new ArrayList<Hall>();
-    EntityTranslator et = EntityTranslator.getInstance();
 
     // set comment , row, column, hallname,
 
@@ -23,9 +22,10 @@ public class Controller {
 
     }
 
-    public void makeWakeUp(String hallName, String userName, Calendar time, String comment){
-        getHallByName(hallName).getSpaceByUserName(userName).setWakeUp(new WakeUp(time, comment));
-        et.addWakeUp(userName, time, comment);
+    public void makeWakeUp(String userName, Calendar time, String comment){
+        for(Hall hall: halls){
+            hall.getSpaceByUserName(userName).setWakeUp(new WakeUp(time, comment));
+        }
     }
 
 
