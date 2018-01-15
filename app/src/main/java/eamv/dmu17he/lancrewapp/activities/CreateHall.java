@@ -25,6 +25,7 @@ public class CreateHall extends AppCompatActivity {
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 EditText hallname = findViewById(R.id.hallName);
                 final String hallName = hallname.getText().toString();
 
@@ -34,7 +35,8 @@ public class CreateHall extends AppCompatActivity {
                 EditText numberofcolumns = findViewById(R.id.numberOfColumns);
                 final int numberOfColumns = Integer.parseInt(numberofcolumns.getText().toString());
 
-                Controller.getInstance().makeHall(hallName, numberOfColumns, numberOfRows);
+
+                    Controller.getInstance().makeHall(hallName, numberOfColumns, numberOfRows);
 
 
 
