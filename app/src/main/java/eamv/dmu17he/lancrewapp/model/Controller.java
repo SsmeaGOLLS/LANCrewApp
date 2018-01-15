@@ -1,5 +1,7 @@
 package eamv.dmu17he.lancrewapp.model;
 
+import android.util.Log;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -15,6 +17,9 @@ public class Controller {
 
     public void makeHall(String hallName, int numberOfColumns, int numberOfRows){
         halls.add(new Hall(hallName, numberOfColumns, numberOfRows));
+        String log="hallName: "+halls.get(0).getHallName()+" rows: "+halls.get(0).getNumberOfRows()+" collums"+halls.get(0).getNumberOfColumns();
+        Log.d("waw", log);
+
     }
 
     public void makeWakeUp(String hallName, String userName, LocalDateTime time, String comment){

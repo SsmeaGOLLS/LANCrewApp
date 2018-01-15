@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/border_style"
         android:ems="10"
         android:hint="Hall name"
@@ -35,29 +35,14 @@
         tools:text="Hall name" />
 
     <EditText
-        android:id="@+id/numberOfRows"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Number of rows"
-        android:inputType="textPersonName"
-        android:background="@drawable/border_style"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hallName"
-        tools:text="Number of rows" />
-
-    <EditText
         android:id="@+id/numberOfColumns"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
+        android:layout_marginTop="30dp"
         android:background="@drawable/border_style"
+        android:ems="10"
+        android:hint="Number of columns"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -78,5 +63,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/numberOfRows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/border_style"
+        android:ems="10"
+        android:hint="Number of rows"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hallName"
+        tools:text="Number of rows" />
 
 </android.support.constraint.ConstraintLayout>
