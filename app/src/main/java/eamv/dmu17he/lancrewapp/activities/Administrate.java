@@ -22,7 +22,16 @@ public class Administrate extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Administrate.this, CreateHall.class);
                 startActivity(intent);
-    }
-});
+            }
+        });
+
+        Button deleteHall = findViewById(R.id.deletehall);
+        deleteHall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Administrate.this, DeleteHall.class);
+                startActivity(intent);
+            }
+        });
     }
 }

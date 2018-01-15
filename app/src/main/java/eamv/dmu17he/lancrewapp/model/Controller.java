@@ -28,6 +28,20 @@ public class Controller {
         }
     }
 
+    public void deleteHall(String hallname){
+        for(int x = 0 ; x < halls.size() ; x++){
+            Log.d("hs", hallname);
+            Log.d("h", halls.get(x).getHallName());
+            if (halls.get(x).getHallName().equals(hallname)){
+                Log.d("der", "use the force");
+                halls.remove(x);
+                for(Hall hall : halls)
+                    Log.d("der", hall.getHallName());
+                return;
+            }
+        }
+    }
+
 
 
     //hej mathias
@@ -55,6 +69,15 @@ public class Controller {
     public String getHallName(int hallIndex) {
         return halls.get(hallIndex).getHallName();
     }
+
+    public ArrayList<String> getHallNames() {
+        ArrayList<String> hallNames = new ArrayList<String>();
+        for(Hall hall : halls)
+            hallNames.add(hall.getHallName());
+        return hallNames;
+    }
+
+
 
     public Calendar getTimeByHallNameUserName(String hallName, String userName){
         return getHallByName(hallName).getSpaceByUserName(userName).getTime();

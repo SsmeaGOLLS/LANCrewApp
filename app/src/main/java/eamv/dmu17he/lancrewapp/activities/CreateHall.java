@@ -19,8 +19,6 @@ public class CreateHall extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_hall);
 
-
-
         Button createbtn = findViewById(R.id.createbutton);
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,14 +33,10 @@ public class CreateHall extends AppCompatActivity {
                 EditText numberofcolumns = findViewById(R.id.numberOfColumns);
                 final int numberOfColumns = Integer.parseInt(numberofcolumns.getText().toString());
 
-
-                    Controller.getInstance().makeHall(hallName, numberOfColumns, numberOfRows);
-
-
+                Controller.getInstance().makeHall(hallName, numberOfColumns, numberOfRows);
 
                 Intent intent = new Intent(CreateHall.this, Administrate.class);
                 startActivity(intent);
-
             }
         });
     }
