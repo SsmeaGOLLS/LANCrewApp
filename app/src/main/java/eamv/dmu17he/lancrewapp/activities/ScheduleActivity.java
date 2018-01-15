@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Comparator;
 import java.util.List;
 
 import eamv.dmu17he.lancrewapp.R;
@@ -76,7 +77,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
         Schedule schedule1 = new Schedule();
         schedule1.setGaName("Glenn Mortensen");
-        schedule1.setDate("2018-01-12");
+        schedule1.setDate("2018-01-15");
         schedule1.setStartTime("10:00:00");
         schedule1.setEndTime("13:00:00");
         schedule1.setName("Mikkel VHN");
@@ -84,7 +85,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
         Schedule schedule2 = new Schedule();
         schedule2.setGaName("Glenn Mortensen");
-        schedule2.setDate("2018-01-12");
+        schedule2.setDate("2018-01-16");
         schedule2.setStartTime("10:00:00");
         schedule2.setEndTime("13:00:00");
         schedule2.setName("Mikkel VHN");
@@ -92,7 +93,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
         Schedule schedule3 = new Schedule();
         schedule3.setGaName("Glenn Mortensen");
-        schedule3.setDate("2018-01-12");
+        schedule3.setDate("2018-01-21");
         schedule3.setStartTime("10:00:00");
         schedule3.setEndTime("13:00:00");
         schedule3.setName("Mikkel VHN");
