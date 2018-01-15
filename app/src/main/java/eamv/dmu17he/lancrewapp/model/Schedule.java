@@ -64,9 +64,7 @@ public class Schedule {
         this.date = date;
     }
 
-    public String getTitle(){
-        return title;
-    }
+    public String getTitle(){return title;}
 
     public void setTitle(String title){this.title = title;}
 

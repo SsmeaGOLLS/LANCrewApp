@@ -83,7 +83,7 @@ public class User {
 
     public String getNickName(){ return nickName; }
 
-    public void setNickName (String nickname) {this.nickName = nickName;}
+    public void setNickName (String nickName) {this.nickName = nickName;}
 
     public boolean getIsAdmin() { return isAdmin; }
 
@@ -92,6 +92,11 @@ public class User {
     //public String getCrew() {return crew;}
 
     //public void setCrew(String crew) {this.crew = crew;}
+
+    @Override
+    public String toString(){
+        return "Name : " + name + "\n Number: " + phoneNumber;
+    }
 
 
     public User(){}

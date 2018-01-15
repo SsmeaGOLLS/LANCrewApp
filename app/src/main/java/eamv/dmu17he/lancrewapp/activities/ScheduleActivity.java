@@ -34,8 +34,8 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        Button insert = (Button) findViewById(R.id.insert);
-        insert.setOnClickListener(new View.OnClickListener() {
+        Button refresh = (Button) findViewById(R.id.refresh);
+        refresh.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 postDataToSDAO();
@@ -122,7 +122,6 @@ public class ScheduleActivity extends AppCompatActivity {
             list.addView(titleView);
             list.addView(textView);
 
-
         }
         //System.out.println(listSchedules.get(0));
 
@@ -130,8 +129,5 @@ public class ScheduleActivity extends AppCompatActivity {
         //textelement.setText(listSchedules.get(0).toString());
 
     }
-    private void goToContactsActivity(){
-        Intent intent = new Intent(this, ContactsActivity.class);
-        startActivity(intent);
-    }
+
 }
