@@ -20,7 +20,7 @@ public class MenuActivity extends AppCompatActivity {
         vækningBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, ActivityWakeUp.class);
+                Intent intent = new Intent(MenuActivity.this, WakeUpActivity.class);
                 startActivity(intent);
             }
         });

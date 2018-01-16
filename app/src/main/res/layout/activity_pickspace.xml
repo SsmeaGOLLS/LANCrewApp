@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eamv.dmu17he.lancrewapp.activities.PickSpace">
+    tools:context="eamv.dmu17he.lancrewapp.activities.PickSpaceActivity">
 
     <TextView
         android:id="@+id/pickspace"
