@@ -15,8 +15,13 @@ public class Controller {
 
     // set comment , row, column, hallname,
 
-    public void makeHall(String hallName, int numberOfColumns, int numberOfRows){
-        halls.add(new Hall(hallName, numberOfColumns, numberOfRows));
+    public void createHall(String hallName, int numberOfColumns, int numberOfRows){
+        Hall hall = new Hall(hallName, numberOfColumns, numberOfRows);
+        halls.add(hall);
+
+
+
+
         String log="hallName: "+halls.get(0).getHallName()+" rows: "+halls.get(0).getNumberOfRows()+" collums"+halls.get(0).getNumberOfColumns();
         Log.d("waw", log);
 
@@ -40,6 +45,19 @@ public class Controller {
                 return;
             }
         }
+    }
+
+    public void editHall(String oldHallName, String newHallName, int newNumberOfColumns, int newNumberOfRows){
+        Hall hall = getHallByName(oldHallName);
+        int numberOfColumns = hall.getNumberOfColumns();
+        int numberOfRows = hall.getNumberOfRows();
+        hall.setHallName(newHallName);
+        hall.setNumberOfColumns(newNumberOfColumns);
+        hall.setNumberOfRows(newNumberOfRows);
+        hall.editNumberOfSpaces(numberOfColumns, numberOfRows, newNumberOfColumns, newNumberOfRows);
+
+
+
     }
 
 

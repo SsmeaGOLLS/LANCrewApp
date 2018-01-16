@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import eamv.dmu17he.lancrewapp.R;
 
-public class BookingOverview extends AppCompatActivity {
+public class BookingOverviewActivityty extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -23,16 +23,16 @@
         <activity android:name="eamv.dmu17he.lancrewapp.activities.UsersActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.MenuActivity" android:screenOrientation="portrait" />
-        <activity android:name=".activities.ActivityWakeUp" />
-        <activity android:name=".activities.Administrate" />
-        <activity android:name=".activities.BookAWakeUp" />
-        <activity android:name=".activities.BookingOverview" />
-        <activity android:name=".activities.CreateHall" />
-        <activity android:name=".activities.EditHall" />
-        <activity android:name=".activities.PickSpace" />
-        <activity android:name=".activities.DeleteHall" />
-        <activity android:name=".activities.ChooseEditOrDelete" />
-        <activity android:name=".activities.WakeUpDetails"></activity>
+        <activity android:name=".activities.WakeUpActivity" />
+        <activity android:name=".activities.AdministrateActivity" />
+        <activity android:name=".activities.BookAWakeUpActivity" />
+        <activity android:name=".activities.BookingOverviewActivityty" />
+        <activity android:name=".activities.CreateHallActivity" />
+        <activity android:name=".activities.EditHallActivity" />
+        <activity android:name=".activities.PickSpaceActivity" />
+        <activity android:name=".activities.DeleteHallActivity" />
+        <activity android:name=".activities.ChooseEditOrDeleteActivity" />
+        <activity android:name=".activities.WakeUpDetailsActivity"></activity>
     </application>
 
 </manifest>

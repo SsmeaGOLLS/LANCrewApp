@@ -9,10 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import eamv.dmu17he.lancrewapp.R;
-import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.model.Controller;
 
-public class CreateHall extends AppCompatActivity {
+public class CreateHallActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +32,9 @@ public class CreateHall extends AppCompatActivity {
                 EditText numberofcolumns = findViewById(R.id.numberOfColumns);
                 final int numberOfColumns = Integer.parseInt(numberofcolumns.getText().toString());
 
-                Controller.getInstance().makeHall(hallName, numberOfColumns, numberOfRows);
+                Controller.getInstance().createHall(hallName, numberOfColumns, numberOfRows);
 
-                Intent intent = new Intent(CreateHall.this, Administrate.class);
+                Intent intent = new Intent(CreateHallActivity.this, AdministrateActivity.class);
                 startActivity(intent);
             }
         });

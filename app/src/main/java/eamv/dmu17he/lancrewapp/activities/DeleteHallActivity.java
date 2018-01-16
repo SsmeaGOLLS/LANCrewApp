@@ -9,14 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.model.Controller;
 
-public class DeleteHall extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class DeleteHallActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     String hallName = "";
 
@@ -36,15 +34,14 @@ public class DeleteHall extends AppCompatActivity implements AdapterView.OnItemS
                 Controller.getInstance().deleteHall(hallName);
             }
         });
-
     }
 
     private void selectHallToDeleteByName() {
         Spinner spinnerDeleteHall = (Spinner) findViewById(R.id.spinnerdeletehall);
-        Controller.getInstance().makeHall("bob", 3,4);
-        Controller.getInstance().makeHall("fgfd", 3,4);
-        Controller.getInstance().makeHall("beef", 3,4);
-        Controller.getInstance().makeHall("beeflee", 3,4);
+        Controller.getInstance().createHall("bob", 3,4);
+        Controller.getInstance().createHall("fgfd", 3,4);
+        Controller.getInstance().createHall("beef", 3,4);
+        Controller.getInstance().createHall("beeflee", 3,4);
 
         ArrayList<String> hallNames = Controller.getInstance().getHallNames();
 
@@ -59,7 +56,7 @@ public class DeleteHall extends AppCompatActivity implements AdapterView.OnItemS
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        Log.d("yes", "you know tha way");
+        Log.d("yes", "you know da wey");
         hallName = parent.getItemAtPosition(pos).toString();
 
     }

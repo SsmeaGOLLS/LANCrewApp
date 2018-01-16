@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import eamv.dmu17he.lancrewapp.R;
 
-public class ActivityWakeUp extends AppCompatActivity {
+public class WakeUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class ActivityWakeUp extends AppCompatActivity {
         bookwakeup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityWakeUp.this, BookAWakeUp.class);
+                Intent intent = new Intent(WakeUpActivity.this, BookAWakeUpActivity.class);
                 startActivity(intent);
 
 
@@ -32,7 +32,7 @@ public class ActivityWakeUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(ActivityWakeUp.this, BookingOverview.class);
+                Intent intent = new Intent(WakeUpActivity.this, BookingOverviewActivityty.class);
                 startActivity(intent);
 
 
@@ -44,7 +44,7 @@ public class ActivityWakeUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(ActivityWakeUp.this, Administrate.class);
+                Intent intent = new Intent(WakeUpActivity.this, AdministrateActivity.class);
                 startActivity(intent);
 
 

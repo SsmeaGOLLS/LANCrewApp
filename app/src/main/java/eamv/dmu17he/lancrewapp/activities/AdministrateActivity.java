@@ -6,10 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import eamv.dmu17he.lancrewapp.activities.CreateHall;
 import eamv.dmu17he.lancrewapp.R;
 
-public class Administrate extends AppCompatActivity {
+public class AdministrateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +19,7 @@ public class Administrate extends AppCompatActivity {
         createhall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Administrate.this, CreateHall.class);
+                Intent intent = new Intent(AdministrateActivity.this, CreateHallActivity.class);
                 startActivity(intent);
             }
         });
@@ -29,7 +28,7 @@ public class Administrate extends AppCompatActivity {
         deleteHall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Administrate.this, DeleteHall.class);
+                Intent intent = new Intent(AdministrateActivity.this, DeleteHallActivity.class);
                 startActivity(intent);
             }
         });

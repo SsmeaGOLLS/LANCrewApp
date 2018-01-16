@@ -77,4 +77,20 @@ public class Hall {
         }
         return null;
     }
+
+    public void editNumberOfSpaces(int numberOfColumns, int numberOfRows, int newNumberOfColumns, int newNumberOfRows) {
+
+        for(Space space : spaces){
+            if(space.getRow() > newNumberOfRows || space.getColumn() > newNumberOfColumns){
+                spaces.remove(space);
+            }
+        }
+
+
+        for (int column = newNumberOfColumns; column< newNumberOfColumns; column++){
+            for (int row = newNumberOfRows; row<newNumberOfRows; row++){
+                spaces.add(new Space(column, row));
+            }
+        }
+    }
 }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import eamv.dmu17he.lancrewapp.R;
 
-public class ChooseEditOrDelete extends AppCompatActivity {
+public class ChooseEditOrDeleteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

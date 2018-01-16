@@ -21,7 +21,7 @@ import eamv.dmu17he.lancrewapp.model.Controller;
 import eamv.dmu17he.lancrewapp.model.WakeUp;
 
 
-public class BookAWakeUp extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class BookAWakeUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private ArrayList<String> wakeupss;
     Calendar selectedWakeUpTime;
