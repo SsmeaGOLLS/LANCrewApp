@@ -1,15 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/border_style"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/itemtext"
-        android:layout_width="wrap_content"
+        android:id="@+id/rowtextview"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timetextview"
+        tools:text="Row" />
+
+    <TextView
+        android:id="@+id/hallnametextview"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_style"
+        app:layout_constraintStart_toEndOf="@+id/rowtextview"
+        app:layout_constraintTop_toBottomOf="@+id/timetextview"
+        tools:text="HallName" />
+
+    <TextView
+        android:id="@+id/usernametextview"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_style"
+        app:layout_constraintStart_toEndOf="@+id/columntextview"
+        app:layout_constraintTop_toBottomOf="@+id/hallnametextview"
+        tools:text="UserName" />
+
+    <TextView
+        android:id="@+id/columntextview"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rowtextview"
+        tools:text="Column" />
+
+    <Button
+        android:id="@+id/pokebutton"
+        android:layout_width="120dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hallnametextview"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Poke" />
+
+    <Button
+        android:id="@+id/deletebutton"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/usernametextview"
+        app:layout_constraintTop_toBottomOf="@+id/pokebutton"
+        tools:text="Delete" />
+
+    <TextView
+        android:id="@+id/timetextview"
+        android:layout_width="196dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Time" />
+
+    <TextView
+        android:id="@+id/commenttextview"
+        android:layout_width="332dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="139dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernametextview"
+        tools:text="Comment" />
 </android.support.constraint.ConstraintLayout>

@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
 
 import eamv.dmu17he.lancrewapp.R;
@@ -35,7 +33,7 @@ public class DateTimeAdapter extends ArrayAdapter<Calendar> {
             row = inflater.inflate(mlayoutresourceid, parent, false);
         }
         row.setTag(currentitem);
-        final TextView calendar = (TextView)row.findViewById(R.id.itemtext);
+        final TextView calendar = (TextView)row.findViewById(R.id.rowtextview);
         calendar.setText(currentitem.toString());
         return row;
     }

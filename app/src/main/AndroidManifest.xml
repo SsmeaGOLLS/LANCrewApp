@@ -9,20 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.LoginActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.RegisterActivity"
+        <activity
+            android:name=".activities.RegisterActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.UsersActivity"
+        <activity
+            android:name=".activities.UsersActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.MenuActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MenuActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activities.WakeUpActivity" />
         <activity android:name=".activities.AdministrateActivity" />
         <activity android:name=".activities.BookAWakeUpActivity" />
@@ -32,7 +34,8 @@
         <activity android:name=".activities.PickSpaceActivity" />
         <activity android:name=".activities.DeleteHallActivity" />
         <activity android:name=".activities.ChooseEditOrDeleteActivity" />
-        <activity android:name=".activities.WakeUpDetailsActivity"></activity>
+        <activity android:name=".activities.WakeUpDetailsActivity" />
+        <activity android:name=".activities.BookingsListOverviewActivity"></activity>
     </application>
 
 </manifest>
