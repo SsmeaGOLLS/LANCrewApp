@@ -32,5 +32,14 @@ public class AdministrateActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button editHall = findViewById(R.id.edithallbutton);
+        editHall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdministrateActivity.this, EditHallActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

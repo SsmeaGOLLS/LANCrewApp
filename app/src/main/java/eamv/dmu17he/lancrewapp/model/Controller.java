@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by alexj on 1/11/2018.
  */
@@ -19,15 +21,11 @@ public class Controller {
         Hall hall = new Hall(hallName, numberOfColumns, numberOfRows);
         halls.add(hall);
 
-
-
-
         String log="hallName: "+halls.get(0).getHallName()+" rows: "+halls.get(0).getNumberOfRows()+" collums"+halls.get(0).getNumberOfColumns();
         Log.d("waw", log);
-
     }
 
-    public void makeWakeUp(String userName, Calendar time, String comment){
+    public void createWakeUp(String userName, Calendar time, String comment){
         for(Hall hall: halls){
             hall.getSpaceByUserName(userName).setWakeUp(new WakeUp(time, comment));
         }
@@ -55,9 +53,6 @@ public class Controller {
         hall.setNumberOfColumns(newNumberOfColumns);
         hall.setNumberOfRows(newNumberOfRows);
         hall.editNumberOfSpaces(numberOfColumns, numberOfRows, newNumberOfColumns, newNumberOfRows);
-
-
-
     }
 
 
@@ -82,6 +77,19 @@ public class Controller {
         temp.add(tempSpace.getColumn());
         temp.add(tempSpace.getRow());
         return temp;
+    }
+
+    public ArrayList<Integer> getRowsAndColumnsByHallName(String hallName) {
+        ArrayList<Integer> listToBeReturned= new ArrayList<Integer>();
+        for(Hall hall: halls){
+            if (hall.getHallName().equals(hallName)) {
+                int numberOfRows = hall.getNumberOfRows();
+                listToBeReturned.add(numberOfRows);
+                int numberOfColumns = hall.getNumberOfColumns();
+                listToBeReturned.add(numberOfColumns);
+            }
+        }
+        return listToBeReturned;
     }
 
     public String getHallName(int hallIndex) {
