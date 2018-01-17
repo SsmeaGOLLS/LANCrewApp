@@ -30,7 +30,7 @@
         <activity android:name=".activities.BookAWakeUpActivity" />
         <activity android:name=".activities.BookingOverviewActivityty" />
         <activity android:name=".activities.CreateHallActivity" />
-        <activity android:name=".activities.EditHallActivity" />
+        <activity android:name=".activities.EditOrDeleteHallActivity" />
         <activity android:name=".activities.PickSpaceActivity" />
         <activity android:name=".activities.DeleteHallActivity" />
         <activity android:name=".activities.ChooseEditOrDeleteActivity" />

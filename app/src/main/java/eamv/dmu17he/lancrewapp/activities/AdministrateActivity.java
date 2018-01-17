@@ -28,7 +28,7 @@ public class AdministrateActivity extends AppCompatActivity {
         deleteHall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AdministrateActivity.this, DeleteHallActivity.class);
+                Intent intent = new Intent(AdministrateActivity.this, EditOrDeleteHallActivity.class);
                 startActivity(intent);
             }
         });
@@ -37,7 +37,7 @@ public class AdministrateActivity extends AppCompatActivity {
         editHall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AdministrateActivity.this, EditHallActivity.class);
+                Intent intent = new Intent(AdministrateActivity.this, EditOrDeleteHallActivity.class);
                 startActivity(intent);
             }
         });

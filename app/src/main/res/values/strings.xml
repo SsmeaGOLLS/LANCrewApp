@@ -20,4 +20,26 @@
     <string name="Vækning">Vækning</string>
     <string name="Beskeder">Beskeder</string>
     <string name="Vagtplan">Vagtplan</string>
+    <string name="save_changes">Save changes</string>
+    <string name="delete">Delete</string>
+    <string name="create">Create</string>
+    <string name="pick">Pick</string>
+    <string name="bookwakeup">Book wakeup</string>
+    <string name="booking_overview">Booking Overview</string>
+    <string name="administrate">Administrate</string>
+    <string name="create_hall">Create hall</string>
+    <string name="edit_delete">Edit/Delete</string>
+    <string name="deletehall">Delete</string>
+    <string name="Hall_name">Hall name</string>
+    <string name="Number_of_rows">Number of rows</string>
+    <string name="Number_of_columns">Number of columns</string>
+    <string name="edit_or_deletehall">Edit or delete</string>
+    <string name="wake_up_details">Wake up details</string>
+    <string name="time">Time:</string>
+    <string name="Place">Place:</string>
+    <string name="comment">Comment:</string>
+    <string name="Poke">Poke</string>
+    <string name="Delete_hall">Delete Hall</string>
+    <string name="Choose_to_edit_or_delete">Choose to edit or delete</string>
+    <string name="Accept">Accept</string>
 </resources>
