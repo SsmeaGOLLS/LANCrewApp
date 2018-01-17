@@ -27,7 +27,7 @@ public class Controller {
 
     public void createWakeUp(String userName, Calendar time, String comment){
         for(Hall hall: halls){
-            hall.getSpaceByUserName(userName).setWakeUp(new WakeUp(time, comment));
+            //hall.getSpaceByUserName(userName).setWakeUp(new WakeUp(time, comment));
         }
     }
 
@@ -106,7 +106,8 @@ public class Controller {
 
 
     public Calendar getTimeByHallNameUserName(String hallName, String userName){
-        return getHallByName(hallName).getSpaceByUserName(userName).getTime();
+        // return getHallByName(hallName).getSpaceByUserName(userName).getTime();
+        return null;
     }
 
     private Hall getHallByName(String hallName){

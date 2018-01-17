@@ -9,15 +9,19 @@ import java.util.Calendar;
 
 public class WakeUp {
     private int pokeCounter;
-    private int id;
-    private Calendar time;
+    private String id;
+    private String time;
     private String comment;
 
-    public WakeUp(Calendar time, String comment){
+    public WakeUp(String time, String comment){
         this.setTime(time);
         this.setComment(comment);
+        pokeCounter = 0;
     }
 
+    public WakeUp(){
+        pokeCounter = 0;
+    }
 
     public int getPokeCounter() {
         return pokeCounter;
@@ -27,19 +31,19 @@ public class WakeUp {
         this.pokeCounter = pokeCounter;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Calendar getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Calendar time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

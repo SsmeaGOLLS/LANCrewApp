@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.View;
 
 import eamv.dmu17he.lancrewapp.R;
+import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
 import eamv.dmu17he.lancrewapp.helper.InputValidation;
+import eamv.dmu17he.lancrewapp.helper.ToDialogError;
 import eamv.dmu17he.lancrewapp.model.User;
 import eamv.dmu17he.lancrewapp.sql.sqLiteDatabase;
 //import eamv.dmu17he.lancrewappprototype.sql.DBHelper;
@@ -42,6 +44,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        AzureServiceAdapter.Initialize();
+        ToDialogError.initToDialogError();
         getSupportActionBar().hide();
         initViews();
         initListeners();

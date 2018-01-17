@@ -8,37 +8,35 @@ import java.util.Calendar;
  */
 
 public class Space {
-    private int id;
-    private WakeUp wakeUp;
+    private String id;
+    private String wakeUpID;
     private String userName;
     private int column;
     private int row;
+    private String hallName;
 
     public Space(int column, int row){
         this.setColumn(column);
         this.setRow(row);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
-
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public WakeUp getWakeUp() {
-        return wakeUp;
+    public String getWakeUpID() {
+        return wakeUpID;
     }
-
-    public void setWakeUp(WakeUp wakeUp) {
-        this.wakeUp = wakeUp;
+    public void setWakeUpID(String wakeUpID) {
+        this.wakeUpID = wakeUpID;
     }
 
     public String getUserName() {
         return userName;
     }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -46,7 +44,6 @@ public class Space {
     public int getColumn() {
         return column;
     }
-
     public void setColumn(int column) {
         this.column = column;
     }
@@ -54,12 +51,12 @@ public class Space {
     public int getRow() {
         return row;
     }
-
     public void setRow(int row) {
         this.row = row;
     }
 
-    public Calendar getTime(){
-        return this.wakeUp.getTime();
-    }
+    public String getHallName() {return hallName;}
+    public void setHallName(String hallName) {this.hallName = hallName;}
+
+    //public Calendar getTime(){return this.wakeUp.getTime();}
 }
