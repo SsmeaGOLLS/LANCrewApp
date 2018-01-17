@@ -20,4 +20,11 @@
     <string name="Vækning">Vækning</string>
     <string name="Beskeder">Beskeder</string>
     <string name="Vagtplan">Vagtplan</string>
+    <string name="save_changes">Save changes</string>
+    <string name="delete">Delete</string>
+    <string name="create">Create</string>
+    <string name="pick">Pick</string>
+    <string name="bookwakeup">Book wakeup</string>
+    <string name="booking_overview">Booking Overview</string>
+    <string name="administrate">Administrate</string>
 </resources>
