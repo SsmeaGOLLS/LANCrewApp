@@ -42,4 +42,6 @@
     <string name="Delete_hall">Delete Hall</string>
     <string name="Choose_to_edit_or_delete">Choose to edit or delete</string>
     <string name="Accept">Accept</string>
+    <string name="column">Column</string>
+    <string name="row">Row</string>
 </resources>
