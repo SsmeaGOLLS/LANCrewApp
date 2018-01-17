@@ -2,6 +2,7 @@ package eamv.dmu17he.lancrewapp.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -67,10 +68,8 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
         }
 
         createTimesForWakeups();
-        bookWakeUp();
-
         getHallNamesForSpinner();
-
+        bookWakeUp();
     }
 
     private void createTimesForWakeups() {
@@ -94,30 +93,46 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
     }
 
     private void getHallNamesForSpinner() {
+        final Context mContext = this;
 
-        try {
-            List<Hall> halls = mHallTable.execute().get();
+        @SuppressLint("StaticFieldLeak")
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                final List<Hall> halls = mHallTable.execute().get();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Spinner pickHallSpinner = (Spinner) findViewById(R.id.pickhallspinner);
+                        ArrayAdapter<Hall> adapter = new ArrayAdapter<Hall>(mContext, android.R.layout.simple_spinner_dropdown_item, halls);
 
-            Spinner pickHallSpinner = (Spinner) findViewById(R.id.pickhallspinner);
-            ArrayAdapter<Hall> adapter = new ArrayAdapter<Hall>(this, android.R.layout.simple_spinner_dropdown_item, halls);
+                        pickHallSpinner.setAdapter(adapter);
+                        pickHallSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                getColumnsForSpinner((Hall) adapterView.getItemAtPosition(i));
+                                getRowsForSpinner((Hall) adapterView.getItemAtPosition(i));
+                            }
 
-            pickHallSpinner.setAdapter(adapter);
-            pickHallSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    getColumnsForSpinner((Hall) adapterView.getItemAtPosition(i));
-                    getRowsForSpinner((Hall) adapterView.getItemAtPosition(i));
-                }
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-        } catch (InterruptedException | MobileServiceException | ExecutionException e) {
-            e.printStackTrace();
-            ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
+                            }
+                        });
+                    }
+                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (MobileServiceException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
+    };
+        task.execute();
     }
 
     private void getColumnsForSpinner(Hall hall) {
@@ -126,9 +141,19 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
                 columns.add(x);
             }
 
-            Spinner spinnerWakeUp = (Spinner) findViewById(R.id.pickhallspinner);
+            Spinner spinnerWakeUp = (Spinner) findViewById(R.id.pickcolumnspinner);
             ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, columns);
-            spinnerWakeUp.setOnItemSelectedListener(this);
+            spinnerWakeUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
             spinnerWakeUp.setAdapter(adapter);
     }
 
@@ -138,9 +163,19 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
                 rows.add(x);
             }
 
-            Spinner spinnerWakeUp = (Spinner) findViewById(R.id.pickhallspinner);
+            Spinner spinnerWakeUp = (Spinner) findViewById(R.id.pickrowspinner);
             ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, rows);
-            spinnerWakeUp.setOnItemSelectedListener(this);
+            spinnerWakeUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
             spinnerWakeUp.setAdapter(adapter);
 
     }
