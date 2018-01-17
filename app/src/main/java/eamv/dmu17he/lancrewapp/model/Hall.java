@@ -32,4 +32,9 @@ public class Hall {
         this.numberOfRows = numberOfRows;
     }
 
+    @Override
+    public String toString() {
+        return hallName;
+    }
+
 }

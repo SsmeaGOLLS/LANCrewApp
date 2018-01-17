@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.MobileServiceException;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
@@ -27,13 +28,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
 import eamv.dmu17he.lancrewapp.helper.ToDialogError;
-import eamv.dmu17he.lancrewapp.model.Controller;
+import eamv.dmu17he.lancrewapp.model.Hall;
+import eamv.dmu17he.lancrewapp.model.Space;
 import eamv.dmu17he.lancrewapp.model.WakeUp;
 
 
@@ -41,6 +44,9 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
 
     private MobileServiceClient mClient;
     private MobileServiceTable<WakeUp> mWakeUpTable;
+    private MobileServiceTable<Hall> mHallTable;
+    private MobileServiceTable<Space> mSpaceTable;
+
     private ProgressBar mProgressBar;
     private AzureServiceAdapter mAzureAdapter;
 
@@ -62,6 +68,9 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
 
         createTimesForWakeups();
         bookWakeUp();
+
+        getHallNamesForSpinner();
+
     }
 
     private void createTimesForWakeups() {
@@ -75,10 +84,65 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
             wakeupss.add(calendar.getTime().toString());
         }
 
-        Spinner spinnerWakeUp = (Spinner) findViewById(R.id.spinner);
+        Spinner spinnerWakeUp = (Spinner) findViewById(R.id.timespinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, wakeupss);
         spinnerWakeUp.setOnItemSelectedListener(this);
         spinnerWakeUp.setAdapter(adapter);
+
+
+
+    }
+
+    private void getHallNamesForSpinner() {
+
+        try {
+            List<Hall> halls = mHallTable.execute().get();
+
+            Spinner pickHallSpinner = (Spinner) findViewById(R.id.pickhallspinner);
+            ArrayAdapter<Hall> adapter = new ArrayAdapter<Hall>(this, android.R.layout.simple_spinner_dropdown_item, halls);
+
+            pickHallSpinner.setAdapter(adapter);
+            pickHallSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    getColumnsForSpinner((Hall) adapterView.getItemAtPosition(i));
+                    getRowsForSpinner((Hall) adapterView.getItemAtPosition(i));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        } catch (InterruptedException | MobileServiceException | ExecutionException e) {
+            e.printStackTrace();
+            ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
+        }
+    }
+
+    private void getColumnsForSpinner(Hall hall) {
+            ArrayList<Integer> columns = new ArrayList<Integer>();
+            for (int x = 1; x <= hall.getNumberOfColumns(); x++) {
+                columns.add(x);
+            }
+
+            Spinner spinnerWakeUp = (Spinner) findViewById(R.id.pickhallspinner);
+            ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, columns);
+            spinnerWakeUp.setOnItemSelectedListener(this);
+            spinnerWakeUp.setAdapter(adapter);
+    }
+
+    private void getRowsForSpinner(Hall hall) {
+            ArrayList<Integer> rows = new ArrayList<Integer>();
+            for (int x = 1; x <= hall.getNumberOfRows(); x++) {
+                rows.add(x);
+            }
+
+            Spinner spinnerWakeUp = (Spinner) findViewById(R.id.pickhallspinner);
+            ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, rows);
+            spinnerWakeUp.setOnItemSelectedListener(this);
+            spinnerWakeUp.setAdapter(adapter);
+
     }
 
     private String getComment(){
@@ -160,8 +224,37 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
 
                     localStoreWakeUp.defineTable("WakeUp", tableDefinitionWakeUp);
 
+                    SQLiteLocalStore localStoreHall = new SQLiteLocalStore(mClient.getContext(), "OfflineStore", null, 1);
+
+                    Map<String, ColumnDataType> tableDefinitionHall = new HashMap<String, ColumnDataType>();
+                    tableDefinitionHall.put("id", ColumnDataType.String);
+                    tableDefinitionHall.put("startTime", ColumnDataType.String);
+                    tableDefinitionHall.put("endTime", ColumnDataType.String);
+                    tableDefinitionHall.put("hallName", ColumnDataType.String);
+                    tableDefinitionHall.put("numberOfColumns", ColumnDataType.Integer);
+                    tableDefinitionHall.put("numberOfRows", ColumnDataType.Integer);
+
+                    localStoreHall.defineTable("Hall", tableDefinitionHall);
+
+                    SQLiteLocalStore localStoreSpace = new SQLiteLocalStore(mClient.getContext(), "OfflineStore", null, 1);
+
+                    Map<String, ColumnDataType> tableDefinitionSpace = new HashMap<String, ColumnDataType>();
+                    tableDefinitionSpace.put("id", ColumnDataType.String);
+                    tableDefinitionSpace.put("startTime", ColumnDataType.String);
+                    tableDefinitionSpace.put("endTime", ColumnDataType.String);
+                    tableDefinitionSpace.put("column", ColumnDataType.Integer);
+                    tableDefinitionSpace.put("row", ColumnDataType.Integer);
+                    tableDefinitionSpace.put("userName", ColumnDataType.String);
+                    tableDefinitionSpace.put("hallName", ColumnDataType.String);
+
+                    localStoreSpace.defineTable("Space", tableDefinitionSpace);
+
+                    SimpleSyncHandler handlerSpace = new SimpleSyncHandler();
+                    SimpleSyncHandler handlerHall = new SimpleSyncHandler();
                     SimpleSyncHandler handlerWakeUp = new SimpleSyncHandler();
 
+                    syncContext.initialize(localStoreSpace, handlerSpace).get();
+                    syncContext.initialize(localStoreHall, handlerHall).get();
                     syncContext.initialize(localStoreWakeUp, handlerWakeUp).get();
 
                 } catch (final Exception e) {
@@ -191,5 +284,7 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
         mAzureAdapter.updateClient(this, this, mProgressBar);
         mClient = mAzureAdapter.getClient();
         mWakeUpTable = mClient.getTable(WakeUp.class);
+        mHallTable = mClient.getTable(Hall.class);
+        mSpaceTable = mClient.getTable(Space.class);
     }
 }
