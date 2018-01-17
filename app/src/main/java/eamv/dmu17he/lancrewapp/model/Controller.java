@@ -52,7 +52,7 @@ public class Controller {
         hall.setHallName(newHallName);
         hall.setNumberOfColumns(newNumberOfColumns);
         hall.setNumberOfRows(newNumberOfRows);
-        hall.editNumberOfSpaces(numberOfColumns, numberOfRows, newNumberOfColumns, newNumberOfRows);
+       // hall.editNumberOfSpaces(numberOfColumns, numberOfRows, newNumberOfColumns, newNumberOfRows);
     }
 
 
@@ -68,12 +68,13 @@ public class Controller {
     }
 
     public int getNumberOfSpacesInHall(int hallIndex){
-        return halls.get(hallIndex).getSizeOfSpaces();
+        //return halls.get(hallIndex).getSizeOfSpaces();
+        return 0;
     }
 
     public ArrayList<Integer> getColumnRowNumber(String hallName, String userName){
         ArrayList<Integer> temp = new ArrayList<Integer>();
-        Space tempSpace = getHallByName(hallName).getSpaceByUserName(userName);
+        Space tempSpace = null;//getHallByName(hallName).getSpaceByUserName(userName);
         temp.add(tempSpace.getColumn());
         temp.add(tempSpace.getRow());
         return temp;

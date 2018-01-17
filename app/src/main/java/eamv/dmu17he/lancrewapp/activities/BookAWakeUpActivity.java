@@ -3,7 +3,6 @@ package eamv.dmu17he.lancrewapp.activities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,18 +15,11 @@ import android.widget.TextView;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
-import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
-import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
-import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileServiceLocalStoreException;
-import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
-import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import eamv.dmu17he.lancrewapp.R;
@@ -152,7 +144,7 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
         mAzureAdapter = AzureServiceAdapter.getInstance();
         mAzureAdapter.updateClient(this, this, mProgressBar);
         mClient = mAzureAdapter.getClient();
-        mBookingAdapter = new BookingListAdapter(this, R.layout.item);
+        mBookingAdapter = new BookingListAdapter(this, R.layout.bookinglistitem);
         mSpaceTable = mClient.getTable(Space.class);
         mHallTable = mClient.getTable(Hall.class);
         mWakeUpTable = mClient.getTable(WakeUp.class);

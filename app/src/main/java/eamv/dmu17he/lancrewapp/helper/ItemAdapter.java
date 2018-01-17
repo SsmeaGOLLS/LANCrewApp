@@ -41,7 +41,7 @@ public class ItemAdapter extends ArrayAdapter<Hall> {
 
         row.setTag(currentItem);
         final TextView rowTextView = (TextView) row.findViewById(R.id.rowtextview);
-        rowTextView.setText(currentItem.getSpaces().get(1).getRow());
+       // rowTextView.setText(currentItem.getSpaces().get(1).getRow());
         rowTextView.setTextSize(20f);
         rowTextView.setTextColor(Color.BLACK);
 

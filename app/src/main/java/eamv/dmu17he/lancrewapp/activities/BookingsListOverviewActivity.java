@@ -332,7 +332,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         mAzureAdapter = AzureServiceAdapter.getInstance();
         mAzureAdapter.updateClient(this, this, mProgressBar);
         mClient = mAzureAdapter.getClient();
-        mBookingAdapter = new BookingListAdapter(this, R.layout.item);
+        mBookingAdapter = new BookingListAdapter(this, R.layout.bookinglistitem);
         mSpaceTable = mClient.getTable(Space.class);
         mHallTable = mClient.getTable(Hall.class);
         mWakeUpTable = mClient.getTable(WakeUp.class);
