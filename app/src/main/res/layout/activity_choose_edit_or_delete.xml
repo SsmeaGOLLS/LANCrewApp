@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textSize="35dp"
-        android:text="Choose to edit or delete"
+        android:text="@string/Choose_to_edit_or_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

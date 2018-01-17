@@ -67,10 +67,10 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
         }
 
         createTimesForWakeups();
-        bookWakeUp();
+
 
         getHallNamesForSpinner();
-
+        bookWakeUp();
     }
 
     private void createTimesForWakeups() {
