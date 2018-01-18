@@ -30,30 +30,21 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import eamv.dmu17he.lancrewapp.R;
+import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
 import eamv.dmu17he.lancrewapp.helper.MessageAdapter;
 import eamv.dmu17he.lancrewapp.helper.MessageController;
 import eamv.dmu17he.lancrewapp.model.Message;
 
 public class CrewMessageActivity extends Activity {
 
-    /**
-     * Mobile Service Client reference
-     */
-    private MobileServiceClient mClient;
+    private AzureServiceAdapter azureService;
 
-    /**
-     * Mobile Service Table used to access data
-     */
+    // Bruges kun til at opbevare crewid og memberid
+    // Skal erstattes med CurrentUser klasse
     private MobileServiceTable<Message> mToDoTable;
 
     static Handler h;
     static Thread t;
-
-    //Offline Sync
-    /**
-     * Mobile Service Table used to access and Sync data
-     */
-    //private MobileServiceSyncTable<ToDoItem> mToDoTable;
 
     /**
      * Adapter to sync the items list with the view
@@ -63,11 +54,6 @@ public class CrewMessageActivity extends Activity {
     private MessageController messageController;
 
     /**
-     * EditText containing the "New To Do" text
-     */
-    private EditText mTextNewToDo;
-
-    /**
      * Initializes the activity
      */
     @Override
@@ -75,47 +61,9 @@ public class CrewMessageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        messageController = new MessageController();
-
-        try {
-            // Create the Mobile Service Client instance, using the provided
-
-            // Mobile Service URL and key
-            mClient = new MobileServiceClient(
-                    "https://crewmessengerapp.azurewebsites.net",
-                    this).withFilter(new ProgressFilter());
-
-            // Extend timeout from default of 10s to 20s
-            mClient.setAndroidHttpClientFactory(new OkHttpClientFactory() {
-                @Override
-                public OkHttpClient createOkHttpClient() {
-                    OkHttpClient client = new OkHttpClient();
-                    client.setReadTimeout(60, TimeUnit.SECONDS);
-                    client.setWriteTimeout(60, TimeUnit.SECONDS);
-                    return client;
-                }
-            });
-
-            // Get the Mobile Service Table instance to use
-
-            mToDoTable = mClient.getTable(Message.class);
-            mTextNewToDo = (EditText) findViewById(R.id.editText);
-
-            // Create an adapter to bind the items with the view
-            mAdapter = new MessageAdapter(this, R.layout.row_list_message);
-            ListView listViewToDo = (ListView) findViewById(R.id.listViewToDo);
-            listViewToDo.setAdapter(mAdapter);
-
-            Log.i("onCreate","Creating...");
-
             // Load the items from the Mobile Service
             startMessenger();
 
-
-
-        } catch (Exception e){
-
-        }
     }
 
     public MessageController getMessageController()
@@ -158,6 +106,17 @@ public class CrewMessageActivity extends Activity {
 
     private void startMessenger()
     {
+        messageController = new MessageController();
+
+        AzureServiceAdapter.Initialize();
+        azureService = AzureServiceAdapter.getInstance();
+        azureService.updateClient(this,this,null);
+        mToDoTable = azureService.getClient().getTable(Message.class);
+
+        mAdapter = new MessageAdapter(this, R.layout.row_list_message);
+        ListView listViewToDo = (ListView) findViewById(R.id.listViewToDo);
+        listViewToDo.setAdapter(mAdapter);
+
         h= new Handler()
         {
             public void handleMessage(android.os.Message msg)
