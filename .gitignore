@@ -8,3 +8,10 @@
 /captures
 .externalNativeBuild
 *.~vsdx
+.idea/modules.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/gradle.xml
+.idea/runConfigurations.xml
+.idea/workspace.xml
+>>>>>>> master

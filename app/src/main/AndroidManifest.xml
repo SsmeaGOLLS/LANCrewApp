@@ -39,6 +39,20 @@
         <activity android:name=".activities.WakeUpDetailsActivity" />
         <activity android:name=".activities.BookingsListOverviewActivity" />
         <activity android:name=".activities.DeleteWakeUpActivity"></activity>
+            android:name=".activities.ScheduleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CreateScheduleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MenuActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

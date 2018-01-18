@@ -71,7 +71,9 @@ public class ToDialogError {
      * @param title
      *            The dialog title
      */
-    private void createAndShowDialog(final String message, final String title, Activity activity) {
+
+    public void createAndShowDialog(final String message, final String title, Activity activity) {
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         builder.setMessage(message);

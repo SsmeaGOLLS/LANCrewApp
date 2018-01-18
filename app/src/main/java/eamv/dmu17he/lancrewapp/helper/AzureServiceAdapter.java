@@ -37,8 +37,10 @@ public class AzureServiceAdapter {
     public static void Initialize() {
         if (mInstance == null) {
             mInstance = new AzureServiceAdapter();
+
         } else {
             throw new IllegalStateException("AzureServiceAdapter is already initialized");
+
         }
     }
 
