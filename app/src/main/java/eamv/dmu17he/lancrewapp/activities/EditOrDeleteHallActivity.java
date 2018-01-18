@@ -23,7 +23,6 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileSer
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,6 @@ import java.util.concurrent.ExecutionException;
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
 import eamv.dmu17he.lancrewapp.helper.ToDialogError;
-import eamv.dmu17he.lancrewapp.model.Controller;
 import eamv.dmu17he.lancrewapp.model.Hall;
 import eamv.dmu17he.lancrewapp.model.Space;
 import eamv.dmu17he.lancrewapp.model.WakeUp;
@@ -70,8 +68,8 @@ public class EditOrDeleteHallActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        hallNameTextView = findViewById(R.id.edithallname);
-        rowsTextView = findViewById(R.id.editnumberofrows);
+        hallNameTextView = findViewById(R.id.displayhall);
+        rowsTextView = findViewById(R.id.displayrow);
         columnsTextView = findViewById(R.id.editnumberofcolumns);
 
         hallNameList();
@@ -200,8 +198,8 @@ public class EditOrDeleteHallActivity extends AppCompatActivity {
     public void saveChanges(View view) {
         final Hall selected = (Hall)((Spinner)findViewById(R.id.hallnamelist)).getSelectedItem();
 
-        selected.setHallName(((TextView)findViewById(R.id.edithallname)).getText().toString());
-        selected.setNumberOfRows(Integer.parseInt(((TextView)findViewById(R.id.editnumberofrows)).getText().toString()));
+        selected.setHallName(((TextView)findViewById(R.id.displayhall)).getText().toString());
+        selected.setNumberOfRows(Integer.parseInt(((TextView)findViewById(R.id.displayrow)).getText().toString()));
         selected.setNumberOfColumns(Integer.parseInt(((TextView)findViewById(R.id.editnumberofcolumns)).getText().toString()));
 
         @SuppressLint("StaticFieldLeak")

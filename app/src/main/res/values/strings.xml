@@ -44,4 +44,5 @@
     <string name="Accept">Accept</string>
     <string name="column">Column</string>
     <string name="row">Row</string>
+    <string name="delete_wakeup">Delete wakeup</string>
 </resources>
