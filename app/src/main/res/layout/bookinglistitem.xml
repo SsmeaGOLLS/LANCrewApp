@@ -59,10 +59,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/roundedbutton"
+        android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/hallnametextview"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Poke" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/deletebutton"

@@ -30,7 +30,7 @@ public class WakeUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(WakeUpActivity.this, DeleteWakeUpActivity.class);
+                Intent intent = new Intent(WakeUpActivity.this, BookingsListOverviewActivity.class);
                 startActivity(intent);
             }
         });

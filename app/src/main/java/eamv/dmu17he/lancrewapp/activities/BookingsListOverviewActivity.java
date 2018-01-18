@@ -36,6 +36,8 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private BookingListAdapter mBookingAdapter;
     private AzureServiceAdapter mAzureAdapter;
+    private List<BookingListViewItem> results;
+    private ListView listViewBooking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +51,12 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
     }
 
     private void createTable() {
+        final Activity mActivity = this;
         try {
             initLocalStore().get();
-            ListView listViewBooking = (ListView) findViewById(R.id.bookingslistoverview);
+            listViewBooking = (ListView) findViewById(R.id.bookingslistoverview);
             listViewBooking.setAdapter(mBookingAdapter);
+
             refreshItemsFromTable();
         } catch (InterruptedException | ExecutionException | MobileServiceLocalStoreException e) {
             ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
@@ -68,7 +72,8 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
 
                 try {
-                    final List<BookingListViewItem> results = refreshBookingListView();
+                    results = refreshBookingListView();
+
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -96,8 +101,9 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         List<WakeUp> WakeUps = refreshWakeUpFromMobileServiceTable();
         if(!WakeUps.isEmpty()){
             System.out.println("1212");
+            BookingListViewItem booking;
             for (WakeUp wakeUp : WakeUps){
-                BookingListViewItem booking = new BookingListViewItem();
+                booking = new BookingListViewItem();
                 booking.setTime(wakeUp.getTime());
                 booking.setComment(wakeUp.getComment());
                 booking.setPoke(wakeUp.getPokeCounter());
