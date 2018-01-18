@@ -79,8 +79,8 @@ public class CreateHallActivity extends AppCompatActivity {
                 addHall(hallName, numberOfColumns, numberOfRows);
 
 
-                Intent intent = new Intent(CreateHallActivity.this, AdministrateActivity.class);
-               startActivity(intent);
+                //Intent intent = new Intent(CreateHallActivity.this, AdministrateActivity.class);
+              // startActivity(intent);
             }
         });
 
