@@ -90,6 +90,7 @@ public class CrewMessageActivity extends Activity {
                             for (Message item : results) {
                                 mAdapter.add(item);
                             }
+                            h.sendEmptyMessage(0);
                         }
                     });
                 } catch (final Exception e){}
@@ -101,7 +102,7 @@ public class CrewMessageActivity extends Activity {
     }
 
     private List<Message> refreshItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
-        return mToDoTable.execute().get();
+        return mToDoTable.where().field("crewId").eq(messageController.getCrewId()).execute().get();
     }
 
     private void startMessenger()
@@ -121,18 +122,17 @@ public class CrewMessageActivity extends Activity {
         {
             public void handleMessage(android.os.Message msg)
             {
-                refreshItemsFromTable();
-                h.postDelayed(t,1000);
+                h.post(t);
             }
         };
         t = new Thread()
         {
             public void run()
             {
-                h.sendEmptyMessage(0);
+                refreshItemsFromTable();
             }
         };
-        h.postDelayed(t,500);
+        h.postDelayed(t,0);
     }
 
     public void sendMessage(View view)

@@ -11,7 +11,7 @@ import eamv.dmu17he.lancrewapp.model.Message;
 public class MessageController
 {
     private final String memberID="Ole";
-    private final String crewID="ewwefwef";
+    private final String crewID="Testcrew";
     private ArrayList<Message> messages;
 
 
