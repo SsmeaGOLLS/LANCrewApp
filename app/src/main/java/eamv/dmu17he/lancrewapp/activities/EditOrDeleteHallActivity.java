@@ -73,8 +73,6 @@ public class EditOrDeleteHallActivity extends AppCompatActivity {
         columnsTextView = findViewById(R.id.editnumberofcolumns);
 
         hallNameList();
-
-
     }
 
     private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
@@ -190,9 +188,6 @@ public class EditOrDeleteHallActivity extends AppCompatActivity {
             }
         };
         task.execute();
-
-
-
     }
 
     public void saveChanges(View view) {
@@ -292,11 +287,9 @@ public class EditOrDeleteHallActivity extends AppCompatActivity {
                     ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
                     e.printStackTrace();
                 }
-
                 return null;
             }
         };
-
         task.execute();
     }
 }

@@ -22,8 +22,6 @@ public class WakeUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(WakeUpActivity.this, BookAWakeUpActivity.class);
                 startActivity(intent);
-
-
             }
         });
 
@@ -34,8 +32,6 @@ public class WakeUpActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(WakeUpActivity.this, DeleteWakeUpActivity.class);
                 startActivity(intent);
-
-
             }
         });
 
@@ -46,12 +42,7 @@ public class WakeUpActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(WakeUpActivity.this, AdministrateActivity.class);
                 startActivity(intent);
-
-
             }
         });
     }
-
-
-
 }
