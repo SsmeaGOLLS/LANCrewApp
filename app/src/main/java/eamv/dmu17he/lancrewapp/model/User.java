@@ -1,39 +1,40 @@
 package eamv.dmu17he.lancrewapp.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
-
-@Entity
 public class User {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @com.google.gson.annotations.SerializedName("id")
+    private String id;
 
-    @ColumnInfo(name = "fullName")
     private String name;
 
-    @ColumnInfo(name = "userName")
+    @com.google.gson.annotations.SerializedName("username")
     private String username;
 
-    @ColumnInfo(name = "password")
+    private int phoneNumber;
+
     private String password;
 
+    private String nickName;
+
+    private boolean isAdmin;
+
+    private String crew;
+
+    private int age;
+
+    private String userId;
 
 
-    public int getId(){
+    public String getId(){
         return id;
     }
-
-    public void setId(int id){
+    public void setId(String id){
         this.id = id;
     }
 
     public String getName(){
         return name;
     }
-
     public void setName(String name){
         this.name = name;
     }
@@ -41,28 +42,47 @@ public class User {
     public String getUsername(){
         return username;
     }
-
     public void setUsername(String username){
         this.username = username;
     }
 
-    public String getPassword(){
-        return password;
+    public int getPhoneNumber(){
+        return phoneNumber;
+    }
+    public void setPhoneNumber(int phoneNumber){
+        this.phoneNumber = phoneNumber;
     }
 
-    public void setPassword(String password){
-        this.password = password;
-    }
+    public String getNickName(){ return nickName; }
+    public void setNickName (String nickName) {this.nickName = nickName;}
 
+    public boolean getIsAdmin() { return isAdmin; }
+    public void setIsAdmin(boolean isAdmin) {this.isAdmin = isAdmin; }
+
+    public String getCrew() {return crew;}
+    public void setCrew(String crew) {this.crew = crew;}
 
     public User(){}
 
-
-    @Ignore
-    public User(String userName, String password){
-        this.username=userName;
-        this.password=password;
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
 

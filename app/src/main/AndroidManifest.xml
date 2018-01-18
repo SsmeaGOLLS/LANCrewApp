@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eamv.dmu17he.lancrewapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,22 +11,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.LoginActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.RegisterActivity"
+        <activity
+            android:name=".activities.RegisterActivity"
             android:screenOrientation="portrait" />
-        
-        <activity android:name="eamv.dmu17he.lancrewapp.activities.UsersActivity"
+        <activity
+            android:name=".activities.ScheduleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CreateScheduleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MenuActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".activities.MenuActivity"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
