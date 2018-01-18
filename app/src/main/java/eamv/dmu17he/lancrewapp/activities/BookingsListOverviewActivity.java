@@ -218,14 +218,17 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
             System.out.println("1212");
             for (WakeUp wakeUp : WakeUps){
                 BookingListViewItem booking = new BookingListViewItem();
-                Space space = mSpaceTable.where().field("WakeUpID").eq(wakeUp.getId()).execute().get().get(0);
                 booking.setTime(wakeUp.getTime());
                 booking.setComment(wakeUp.getComment());
-                booking.setColumn(space.getColumn());
-                booking.setRow(space.getRow());
-                booking.setNickName(space.getUserName());
-                booking.setHallName(space.getHallName());
                 booking.setPoke(wakeUp.getPokeCounter());
+                List<Space> spaceList = mSpaceTable.where().field("wakeUpID").eq(wakeUp.getId()).execute().get();
+                if (spaceList.size() == 1) {
+                    Space space = spaceList.get(0);
+                    booking.setColumn(space.getColumn());
+                    booking.setRow(space.getRow());
+                    booking.setNickName(space.getUserName());
+                    booking.setHallName(space.getHallName());
+                }
 
                 merge.add(booking);
             }
@@ -268,6 +271,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
                     tableDefinitionSpace.put("row", ColumnDataType.Integer);
                     tableDefinitionSpace.put("userName", ColumnDataType.String);
                     tableDefinitionSpace.put("hallName", ColumnDataType.String);
+                    tableDefinitionSpace.put("wakeUpID", ColumnDataType.String);
 
                     localStoreSpace.defineTable("Space", tableDefinitionSpace);
 

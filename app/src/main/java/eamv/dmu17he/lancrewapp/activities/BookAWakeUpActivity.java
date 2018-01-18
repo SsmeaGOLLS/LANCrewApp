@@ -88,9 +88,6 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, wakeupss);
         spinnerWakeUp.setOnItemSelectedListener(this);
         spinnerWakeUp.setAdapter(adapter);
-
-
-
     }
 
     private void getHallNamesForSpinner() {
@@ -204,10 +201,19 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    WakeUp test = new WakeUp();
-                    test.setComment(getComment());
-                    test.setTime(selectedWakeUpTime.getTime().toString());
-                    WakeUp entity = mWakeUpTable.insert(test).get();
+                    WakeUp wakeUp = new WakeUp();
+                    wakeUp.setComment(getComment());
+                    wakeUp.setTime(selectedWakeUpTime.getTime().toString());
+                    WakeUp entity = mWakeUpTable.insert(wakeUp).get();
+
+                    Space space = new Space();
+                    space.setWakeUpID(entity.getId());
+                    space.setColumn((Integer)((Spinner)findViewById(R.id.pickcolumnspinner)).getSelectedItem());
+                    space.setRow((Integer)((Spinner)findViewById(R.id.pickrowspinner)).getSelectedItem());
+                    space.setHallName("" + ((Spinner)findViewById(R.id.pickhallspinner)).getSelectedItem());
+                    mSpaceTable.insert(space);
+
+
                 } catch (InterruptedException | ExecutionException e) {
                     ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
                     e.printStackTrace();

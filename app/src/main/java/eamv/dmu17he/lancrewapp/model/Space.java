@@ -19,6 +19,7 @@ public class Space {
         this.setColumn(column);
         this.setRow(row);
     }
+    public Space(){}
 
     public String getId() {
         return id;
