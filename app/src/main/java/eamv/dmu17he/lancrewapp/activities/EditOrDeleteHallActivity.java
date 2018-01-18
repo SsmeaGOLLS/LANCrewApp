@@ -219,6 +219,7 @@ public class EditOrDeleteHallActivity extends AppCompatActivity {
         };
         task.execute();
     }
+
     public void deleteHall(View view) {
         final Hall selected = (Hall)((Spinner)findViewById(R.id.hallnamelist)).getSelectedItem();
 

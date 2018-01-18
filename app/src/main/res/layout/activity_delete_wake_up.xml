@@ -7,7 +7,7 @@
     tools:context="eamv.dmu17he.lancrewapp.activities.DeleteWakeUpActivity">
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/timespinner"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -15,10 +15,10 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/deleteWakeUp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/deleteWakeUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -79,7 +79,7 @@
         tools:text="Column" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/deletewakeupbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -88,6 +88,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/delete"
         android:background="@drawable/roundedbutton"
+        android:onClick="deleteSpace"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
@@ -105,7 +106,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintTop_toBottomOf="@+id/timespinner"
         tools:text="Time" />
 
     <ProgressBar
