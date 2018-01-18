@@ -53,7 +53,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
             initLocalStore().get();
             ListView listViewBooking = (ListView) findViewById(R.id.bookingslistoverview);
             listViewBooking.setAdapter(mBookingAdapter);
-            AddWakeUpTest();
+           // AddWakeUpTest();
             refreshItemsFromTable();
         } catch (InterruptedException | ExecutionException | MobileServiceLocalStoreException e) {
             ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
