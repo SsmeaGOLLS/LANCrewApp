@@ -29,7 +29,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
 
-        Button vækningBtn = findViewById(R.id.vækningBtn);
+        Button vækningBtn = findViewById(R.id.wakeup);
         vækningBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

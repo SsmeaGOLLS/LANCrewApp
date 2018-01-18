@@ -65,14 +65,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        AzureServiceAdapter.Initialize();
-        ToDialogError.initToDialogError();
+      AzureServiceAdapter.Initialize();
+       ToDialogError.initToDialogError();
 
-        if(firstRun) {
-            AzureServiceAdapter.Initialize();
-            ToDialogError.initToDialogError();
+/*        if(firstRun) {
+          AzureServiceAdapter.Initialize();
+           ToDialogError.initToDialogError();
             firstRun = false;
-        }
+        }*/
 
         getSupportActionBar().hide();
         initViews();
