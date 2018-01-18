@@ -60,8 +60,8 @@ public class CreateScheduleActivity extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.endTimeET);
         item.setEndTime(editText.getText().toString());
 
-        /*editText = (EditText) findViewById(R.id.nickNameET);
-        item.setNickName(editText.getText().toString());*/
+        editText = (EditText) findViewById(R.id.nickNameET);
+        item.setNickName(editText.getText().toString());
 
         editText = (EditText) findViewById(R.id.gaNickET);
         item.setGaName(editText.getText().toString());
@@ -92,8 +92,8 @@ public class CreateScheduleActivity extends AppCompatActivity {
 
         editText.setText("");
 
-       /* editText = (EditText) findViewById(R.id.nickNameET);
-        editText.setText("");*/
+       editText = (EditText) findViewById(R.id.nickNameET);
+        editText.setText("");
 
         editText = (EditText) findViewById(R.id.endTimeET);
         editText.setText("");
