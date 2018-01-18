@@ -6,4 +6,6 @@
     <color name="colorText">#FFFFFF</color>
     <color name="colorTextHint">#51d8c7</color>
     <color name="colorBackground">#5f92ff</color>
+    <color name="chatcolor1">#d8dbed</color>
+    <color name="chatcolor2">#f6c5d5</color>
 </resources>
