@@ -180,7 +180,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private List<Schedule> refreshScheduleItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
-        return mScheduleTable.where().field("username").eq(GlobalUserSingleton.getGlobals(this).theCurrentUser.getUsername()).execute().get();
+        return mScheduleTable.where().field("nickName").eq(GlobalUserSingleton.getGlobals(this).theCurrentUser.getUsername()).execute().get();
         //return mScheduleTable.execute().get();
     }
 
