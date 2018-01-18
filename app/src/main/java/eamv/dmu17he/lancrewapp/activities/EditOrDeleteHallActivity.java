@@ -228,13 +228,24 @@ public class EditOrDeleteHallActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
+                    List<Space> spaceList = mSpaceTable.where().field("hallName").eq(selected.getHallName()).execute().get();
+                    List<WakeUp> wakeupList;
+
+                    for (Space space: spaceList) {
+                        wakeupList = mWakeUpTable.where().field("id").eq(space.getWakeUpID()).execute().get();
+                        if (wakeupList.size() > 0)
+                        mWakeUpTable.delete(wakeupList.get(0));
+                        mSpaceTable.delete(space);
+                    }
+
                     mHallTable.delete(selected).get();
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-
+                refreshItemsFromTable();
                 return null;
             }
         };
@@ -255,5 +266,37 @@ public class EditOrDeleteHallActivity extends AppCompatActivity {
         mSpaceTable = mClient.getTable(Space.class);
         mHallTable = mClient.getTable(Hall.class);
         mWakeUpTable = mClient.getTable(WakeUp.class);
+    }
+
+    private void refreshItemsFromTable() {
+        final Activity mActivity = this;
+        final Context mContext = this;
+
+        @SuppressLint("StaticFieldLeak") // <-- Just to suppress warning
+                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected Void doInBackground(Void... params) {
+
+                try {
+                    final List<Hall> mhallNames = mHallTable.execute().get();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter = new ArrayAdapter<Hall>(mContext, android.R.layout.simple_spinner_dropdown_item, mhallNames);
+                            spinner.setAdapter(adapter);
+                            hallNameList();
+                        }
+                    });
+                } catch (final Exception e){
+                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+        };
+
+        task.execute();
     }
 }

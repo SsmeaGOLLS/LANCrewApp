@@ -31,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
 import eamv.dmu17he.lancrewapp.helper.ToDialogError;
+import eamv.dmu17he.lancrewapp.model.BookingListViewItem;
 import eamv.dmu17he.lancrewapp.model.Hall;
 import eamv.dmu17he.lancrewapp.model.Space;
 import eamv.dmu17he.lancrewapp.model.User;
@@ -55,7 +56,6 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
     ArrayAdapter<WakeUp> adapter; //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,6 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        displaytime = findViewById(R.id.displaytime);
         displayhall = findViewById(R.id.displayhall);
         displayrow = findViewById(R.id.displayrow);
         displaycolumn = findViewById(R.id.displaycolumn);
@@ -83,7 +82,7 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
 
     }
 
-    private void timeList () {
+    private void timeList() {
         final Context mContext = this;
         final Activity mActivity = this;
 
@@ -115,15 +114,14 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
         task.execute();
 
 
-
     }
 
-    private void setListener(){
+    private void setListener() {
         onClicky = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                final WakeUp selected = (WakeUp) ((Spinner)findViewById(R.id.timespinner)).getSelectedItem();
-    @SuppressLint("StaticFieldLeak")
+                final WakeUp selected = (WakeUp) ((Spinner) findViewById(R.id.timespinner)).getSelectedItem();
+                @SuppressLint("StaticFieldLeak")
                 AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... voids) {
@@ -137,9 +135,9 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
                                     displaycolumn.setText("" + space.getColumn());
                                 }
                             }
-                        } catch(InterruptedException e){
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
-                        } catch(ExecutionException e){
+                        } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
                         return null;
@@ -242,8 +240,9 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
         mHallTable = mClient.getTable(Hall.class);
         mWakeUpTable = mClient.getTable(WakeUp.class);
     }
+
     public void deleteSpace(View view) {
-        final WakeUp selected = (WakeUp)((Spinner)findViewById(R.id.timespinner)).getSelectedItem();
+        final WakeUp selected = (WakeUp) ((Spinner) findViewById(R.id.timespinner)).getSelectedItem();
 
         @SuppressLint("StaticFieldLeak")
         AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
@@ -262,9 +261,42 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                refreshItemsFromTable();
                 return null;
             }
         };
+        task.execute();
+    }
+
+    private void refreshItemsFromTable() {
+        final Activity mActivity = this;
+        final Context mContext = this;
+
+        @SuppressLint("StaticFieldLeak") // <-- Just to suppress warning
+                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected Void doInBackground(Void... params) {
+
+                try {
+                    final List<WakeUp> mwakeupTime = mWakeUpTable.execute().get();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter = new ArrayAdapter<WakeUp>(mContext, android.R.layout.simple_spinner_dropdown_item, mwakeupTime);
+                            spinner.setAdapter(adapter);
+                            setListener();
+                        }
+                    });
+                } catch (final Exception e){
+                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+        };
+
         task.execute();
     }
 }
