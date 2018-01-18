@@ -24,14 +24,14 @@ public class AdministrateActivity extends AppCompatActivity {
             }
         });
 
-        Button deleteHall = findViewById(R.id.deletehall);
+/*        Button deleteHall = findViewById(R.id.deletehall);
         deleteHall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdministrateActivity.this, EditOrDeleteHallActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         Button editHall = findViewById(R.id.edithallbutton);
         editHall.setOnClickListener(new View.OnClickListener() {

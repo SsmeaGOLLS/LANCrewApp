@@ -36,9 +36,7 @@ import eamv.dmu17he.lancrewapp.model.WakeUp;
 
 public class CreateHallActivity extends AppCompatActivity {
     private MobileServiceClient mClient;
-    private MobileServiceTable<WakeUp> mWakeUpTable;
     private MobileServiceTable<Hall> mHallTable;
-    private MobileServiceTable<Space> mSpaceTable;
     private ProgressBar mProgressBar;
     private AzureServiceAdapter mAzureAdapter;
 
@@ -59,7 +57,6 @@ public class CreateHallActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         Button createbtn = findViewById(R.id.createbutton);
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,17 +71,9 @@ public class CreateHallActivity extends AppCompatActivity {
                 EditText numberofcolumns = findViewById(R.id.numberOfColumns);
                 final int numberOfColumns = Integer.parseInt(numberofcolumns.getText().toString());
 
-               // Controller.getInstance().createHall(hallName, numberOfColumns, numberOfRows);
-
                 addHall(hallName, numberOfColumns, numberOfRows);
-
-
-                //Intent intent = new Intent(CreateHallActivity.this, AdministrateActivity.class);
-              // startActivity(intent);
             }
         });
-
-
 
     }
 
@@ -99,7 +88,6 @@ public class CreateHallActivity extends AppCompatActivity {
             protected Void doInBackground(Void... voids) {
 
                 Hall hall = new Hall();
-
                 hall.setHallName(hallname);
                 hall.setNumberOfColumns(numberofcolumns);
                 hall.setNumberOfRows(numberofrows);
@@ -179,11 +167,9 @@ public class CreateHallActivity extends AppCompatActivity {
                 } catch (final Exception e) {
                     ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
                 }
-
                 return null;
             }
         };
-
         return task.execute();
     }
 
@@ -196,8 +182,6 @@ public class CreateHallActivity extends AppCompatActivity {
         mAzureAdapter = AzureServiceAdapter.getInstance();
         mAzureAdapter.updateClient(this, this, mProgressBar);
         mClient = mAzureAdapter.getClient();
-        mSpaceTable = mClient.getTable(Space.class);
         mHallTable = mClient.getTable(Hall.class);
-        mWakeUpTable = mClient.getTable(WakeUp.class);
     }
 }

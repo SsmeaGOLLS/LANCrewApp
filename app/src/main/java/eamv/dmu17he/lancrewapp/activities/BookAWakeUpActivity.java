@@ -141,17 +141,6 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
 
             Spinner spinnerWakeUp = (Spinner) findViewById(R.id.pickcolumnspinner);
             ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, columns);
-            spinnerWakeUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
             spinnerWakeUp.setAdapter(adapter);
     }
 
@@ -163,19 +152,7 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
 
             Spinner spinnerWakeUp = (Spinner) findViewById(R.id.pickrowspinner);
             ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, rows);
-            spinnerWakeUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
             spinnerWakeUp.setAdapter(adapter);
-
     }
 
     private String getComment(){
@@ -212,7 +189,6 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
                     space.setRow((Integer)((Spinner)findViewById(R.id.pickrowspinner)).getSelectedItem());
                     space.setHallName("" + ((Spinner)findViewById(R.id.pickhallspinner)).getSelectedItem());
                     mSpaceTable.insert(space);
-
 
                 } catch (InterruptedException | ExecutionException e) {
                     ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);

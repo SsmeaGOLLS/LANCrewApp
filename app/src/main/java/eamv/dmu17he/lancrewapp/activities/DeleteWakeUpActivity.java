@@ -53,8 +53,7 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
     TextView displaycolumn;
     Spinner spinner;
 
-    ArrayAdapter<WakeUp> adapter; //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
+    ArrayAdapter<WakeUp> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +77,6 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
         displaycolumn = findViewById(R.id.displaycolumn);
 
         timeList();
-
-
     }
 
     private void timeList() {
@@ -112,8 +109,6 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
             }
         };
         task.execute();
-
-
     }
 
     private void setListener() {
@@ -145,14 +140,11 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
                 };
                 task.execute();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         };
         spinner.setOnItemSelectedListener(onClicky);
-
     }
 
     private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
@@ -162,7 +154,6 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-
                     MobileServiceSyncContext syncContext = mClient.getSyncContext();
 
                     if (syncContext.isInitialized())
@@ -216,11 +207,9 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
                 } catch (final Exception e) {
                     ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
                 }
-
                 return null;
             }
         };
-
         return task.execute();
     }
 
@@ -260,7 +249,6 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-
                 refreshItemsFromTable();
                 return null;
             }
@@ -292,11 +280,9 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
                     ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
                     e.printStackTrace();
                 }
-
                 return null;
             }
         };
-
         task.execute();
     }
 }
