@@ -8,10 +8,12 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceException;
@@ -22,6 +24,7 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileSer
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +33,22 @@ import java.util.concurrent.ExecutionException;
 import eamv.dmu17he.lancrewapp.R;
 
 import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
+import eamv.dmu17he.lancrewapp.helper.GlobalUserSingleton;
+import eamv.dmu17he.lancrewapp.helper.ProfileAdapter;
 import eamv.dmu17he.lancrewapp.helper.ScheduleAdapter;
 import eamv.dmu17he.lancrewapp.helper.ToDialogError;
 import eamv.dmu17he.lancrewapp.model.Schedule;
+import eamv.dmu17he.lancrewapp.model.User;
 
 public class CreateScheduleActivity extends AppCompatActivity {
+
+    private Spinner crewDropdown;
+    private Spinner userDropdown;
+    private MobileServiceClient mClient;
+    private MobileServiceTable<Schedule> mTable;
+    private MobileServiceTable<User> mUserTable;
+    private ProgressBar mProgressBar;
+    private AzureServiceAdapter mAzureAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +56,7 @@ public class CreateScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_schedule);
         initButtonAndProgressBar();
         initMobileService();
-
+        initCrewDropdown();
         createTable();
     }
 
@@ -60,8 +74,8 @@ public class CreateScheduleActivity extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.endTimeET);
         item.setEndTime(editText.getText().toString());
 
-        editText = (EditText) findViewById(R.id.nickNameET);
-        item.setNickName(editText.getText().toString());
+       // editText = (EditText) findViewById(R.id.nickNameET);
+       // item.setNickName(editText.getText().toString());
 
         editText = (EditText) findViewById(R.id.gaNickET);
         item.setGaName(editText.getText().toString());
@@ -92,8 +106,8 @@ public class CreateScheduleActivity extends AppCompatActivity {
 
         editText.setText("");
 
-       editText = (EditText) findViewById(R.id.nickNameET);
-        editText.setText("");
+     //  editText = (EditText) findViewById(R.id.nickNameET);
+     //   editText.setText("");
 
         editText = (EditText) findViewById(R.id.endTimeET);
         editText.setText("");
@@ -108,14 +122,6 @@ public class CreateScheduleActivity extends AppCompatActivity {
         editText.setText("");
     }
 
-    private Button refresh;
-    private MobileServiceClient mClient;
-    private MobileServiceTable<Schedule> mTable;
-    private ProgressBar mProgressBar;
-    private ScheduleAdapter mScheduleAdapter;
-    private AzureServiceAdapter mAzureAdapter;
-
-
     private void createTable() {
         try {
             initLocalStore().get();
@@ -125,6 +131,32 @@ public class CreateScheduleActivity extends AppCompatActivity {
         } catch (InterruptedException | ExecutionException | MobileServiceLocalStoreException e) {
             ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
         }
+    }
+
+    private void initCrewDropdown(){
+
+        //get the spinner from the xml.
+        crewDropdown = (Spinner) findViewById(R.id.crewSpinner);
+        //create a list of items for the spinner.
+        String[] items = new String[]{"Crewcare", "Køkken", "Support", "IT", "Security"};
+        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        //There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        //set the spinners adapter to the previously created one.
+        crewDropdown.setAdapter(adapter);
+    }
+
+    private void getCrewMembers()throws ExecutionException, InterruptedException, MobileServiceException {
+        List<User> listUsers = mUserTable.where().field("crew").eq(crewDropdown.getSelectedItem().toString()).execute().get();
+        ArrayList<String> nickNameList = new ArrayList<String>();
+        for(User user : listUsers){
+            nickNameList.add(user.getNickName());
+        }
+
+        userDropdown = (Spinner) findViewById(R.id.userSpinner);
+        ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, nickNameList );
+     //   nickNameList.toArray();
+
     }
 
     public void addItem(View view) {
@@ -141,17 +173,9 @@ public class CreateScheduleActivity extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 try {
 
-                //    final Schedule entity = addItemInTable(schedule);
-
-                  //  final Schedule entity1 = addItemInTable(schedule1);
-                    //final Schedule entity2 = addItemInTable(schedule2);
-                   // final Schedule entity3 = addItemInTable(schedule3);
-
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                     //       mScheduleAdapter.add(entity);
 
                         }
                     });
@@ -168,38 +192,6 @@ public class CreateScheduleActivity extends AppCompatActivity {
     public Schedule addItemInTable(Schedule item) throws ExecutionException, InterruptedException {
         Schedule entity = mTable.insert(item).get();
         return entity;
-    }
-
-    private void refreshItemsFromTable() {
-        final Activity mActivity = this;
-
-        @SuppressLint("StaticFieldLeak") // <-- Just to suppress warning
-                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                try {
-                    final List<Schedule> results = refreshItemsFromMobileServiceTable();
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mScheduleAdapter.clear();
-
-                            for (Schedule item : results) {
-                                mScheduleAdapter.add(item);
-                            }
-                        }
-                    });
-                } catch (final Exception e){
-                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
-                }
-
-                return null;
-            }
-        };
-
-        runAsyncTask(task);
     }
 
     private List<Schedule> refreshItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
@@ -230,7 +222,18 @@ public class CreateScheduleActivity extends AppCompatActivity {
                     tableDefinition.put("nickName", ColumnDataType.String);
                     tableDefinition.put("gaName", ColumnDataType.String);
 
+                    Map<String, ColumnDataType> tableDefinitionUser = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("name", ColumnDataType.String);
+                    tableDefinition.put("userName", ColumnDataType.String);
+                    tableDefinition.put("password", ColumnDataType.String);
+                    tableDefinition.put("phoneNumber", ColumnDataType.Integer);
+                    tableDefinition.put("nickName", ColumnDataType.String);
+                    tableDefinition.put("isAdmin", ColumnDataType.Boolean);
+
+
                     localStore.defineTable("Schedule", tableDefinition);
+                    localStore.defineTable("User", tableDefinitionUser);
 
                     SimpleSyncHandler handler = new SimpleSyncHandler();
 
@@ -258,14 +261,14 @@ public class CreateScheduleActivity extends AppCompatActivity {
     private void initButtonAndProgressBar() {
         mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
         mProgressBar.setVisibility(ProgressBar.GONE);
-        refresh = (Button) findViewById(R.id.refresh);
+
     }
 
     private void initMobileService() {
         mAzureAdapter = AzureServiceAdapter.getInstance();
         mAzureAdapter.updateClient(this, this, mProgressBar);
         mClient = mAzureAdapter.getClient();
-        mScheduleAdapter = new ScheduleAdapter(this, R.layout.activity_create_schedule);
+        mUserTable = mClient.getTable(User.class);
         mTable = mClient.getTable(Schedule.class);
     }
 
