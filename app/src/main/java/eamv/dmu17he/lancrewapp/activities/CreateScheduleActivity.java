@@ -2,11 +2,13 @@ package eamv.dmu17he.lancrewapp.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceException;
@@ -104,8 +108,16 @@ public class CreateScheduleActivity extends AppCompatActivity {
 
         runAsyncTask(task);
 
-        editText.setText("");
+        Context context = getApplicationContext();
+        CharSequence text = "Saved";
+        int duration = Toast.LENGTH_SHORT;
 
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL, 20, 0);
+        toast.show();
+
+        editText.setText("");
      //  editText = (EditText) findViewById(R.id.nickNameET);
      //   editText.setText("");
 
