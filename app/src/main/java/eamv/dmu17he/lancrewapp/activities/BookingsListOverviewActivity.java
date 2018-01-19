@@ -53,6 +53,8 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
     private AzureServiceAdapter mAzureAdapter;
     private List<BookingListViewItem> results;
     private ListView listViewBooking;
+    AsyncTask<Void, Void, Void> task;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +84,8 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
     private void refreshItemsFromTable() {
         final Activity mActivity = this;
 
-        @SuppressLint("StaticFieldLeak") // <-- Just to suppress warning
-                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+        // <-- Just to suppress warning
+                task = new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -236,21 +238,16 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         mWakeUpTable = mClient.getTable(WakeUp.class);
     }
 
-    public void updatePoke(View view, String wakeUpID, Context mContext) {
-        final Button poke = (Button) view.findViewById(R.id.pokebutton);
-        int p = (Integer.parseInt(poke.getText().toString()));
+    public void updatePoke(View view, String wakeUpID, Context mContext, Button poke, BookingListViewItem currentItem) {
 
         final int x = (1 +(Integer.parseInt(poke.getText().toString())));
         poke.setText("" + (1 +(Integer.parseInt(poke.getText().toString()))));
         Log.d("beef", wakeUpID);
-        final String mWakeUpID = wakeUpID;
-        final Context mmContext = mContext;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updatePokeInWakeupTable(x, mWakeUpID, mmContext);
-            }
-        });
+
+        currentItem.setPoke(x);
+                updatePokeInWakeupTable(x, wakeUpID, mContext);
+
+
 
 
     }
@@ -258,43 +255,35 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
     private void updatePokeInWakeupTable(final int pokeCounter,final String wakeUpID, final Context mContext) {
         final Activity mActivity = this;
 
-        @SuppressLint("StaticFieldLeak")
-        AsyncTask<Void, Void, Void> task = runAsyncTask(new AsyncTask<Void, Void, Void>() {
+
+
+
+
+        task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-
                 try {
                     List<WakeUp> wakeUpList = mWakeUpTable.where().field("id").eq(wakeUpID).execute().get();
                     if(wakeUpList.size()>0) {
+                        Log.d("ey", "doInBackground: ");
                         WakeUp wakeup = wakeUpList.get(0);
                         wakeup.setPokeCounter(pokeCounter);
                         WakeUp entity = mWakeUpTable.update(wakeup).get();
 
+                        Log.d("hey", String.valueOf(wakeup.getPokeCounter()));
+
                     }
+
 
 
                 } catch (InterruptedException | ExecutionException  e) {
                     e.printStackTrace();
                 }
 
-
                 return null;
             }
-        });
-
-        task.execute();
-
-        Eksempel
-
-        @SuppressLint("StaticFieldLeak")
-        RequestAsyncTask task = new RequestAsyncTask(mClient.getServiceFilter(), mClient.createConnection()) {
-            @Override
-            public void executeTask() {
-                super.executeTask();
-            }
         };
-
-        Så skal der bare lige gennemskues hvordan man giver den de rigtige ting. ;)
+        task.execute();
 
     }
 

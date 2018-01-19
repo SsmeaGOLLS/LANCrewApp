@@ -66,7 +66,7 @@ public class BookingListAdapter extends ArrayAdapter<BookingListViewItem> {
         poke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentItem.getActivity().updatePoke(row, currentItem.getWakeUpID(), mContext);
+                currentItem.getActivity().updatePoke(row, currentItem.getWakeUpID(), mContext, poke, currentItem);
 
 
             }
