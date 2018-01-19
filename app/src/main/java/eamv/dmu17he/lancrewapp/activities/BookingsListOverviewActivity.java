@@ -15,13 +15,19 @@ import android.widget.ProgressBar;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceException;
+import com.microsoft.windowsazure.mobileservices.http.MobileServiceConnection;
+import com.microsoft.windowsazure.mobileservices.http.RequestAsyncTask;
+import com.microsoft.windowsazure.mobileservices.http.ServiceFilterRequest;
+import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileServiceLocalStoreException;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
+import com.squareup.okhttp.Headers;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +58,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookings_overview);
+
 
         initProgressBar();
         initMobileService();
@@ -103,6 +110,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
             }
         };
         runAsyncTask(task);
+
     }
 
     private List<BookingListViewItem> refreshBookingListView() throws InterruptedException, ExecutionException, MobileServiceException {
@@ -117,6 +125,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
                 booking.setComment(wakeUp.getComment());
                 booking.setPoke(wakeUp.getPokeCounter());
                 booking.setWakeUpID(wakeUp.getId());
+                booking.setActivity(this);
                 List<Space> spaceList = mSpaceTable.where().field("wakeUpID").eq(wakeUp.getId()).execute().get();
                 if (spaceList.size() == 1) {
                     Space space = spaceList.get(0);
@@ -231,40 +240,40 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         final Button poke = (Button) view.findViewById(R.id.pokebutton);
         int p = (Integer.parseInt(poke.getText().toString()));
 
-        int x = (1 +(Integer.parseInt(poke.getText().toString())));
+        final int x = (1 +(Integer.parseInt(poke.getText().toString())));
         poke.setText("" + (1 +(Integer.parseInt(poke.getText().toString()))));
         Log.d("beef", wakeUpID);
+        final String mWakeUpID = wakeUpID;
+        final Context mmContext = mContext;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updatePokeInWakeupTable(x, mWakeUpID, mmContext);
+            }
+        });
 
-        updatePokeInWakeupTable(x, wakeUpID, mContext);
 
     }
 
     private void updatePokeInWakeupTable(final int pokeCounter,final String wakeUpID, final Context mContext) {
         final Activity mActivity = this;
 
-        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = runAsyncTask(new AsyncTask<Void, Void, Void>() {
+        @SuppressLint("StaticFieldLeak")
+        AsyncTask<Void, Void, Void> task = runAsyncTask(new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
 
                 try {
-                    final List<WakeUp> wakeUpList = mWakeUpTable.execute().get();
+                    List<WakeUp> wakeUpList = mWakeUpTable.where().field("id").eq(wakeUpID).execute().get();
+                    if(wakeUpList.size()>0) {
+                        WakeUp wakeup = wakeUpList.get(0);
+                        wakeup.setPokeCounter(pokeCounter);
+                        WakeUp entity = mWakeUpTable.update(wakeup).get();
+
+                    }
 
 
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            for (WakeUp wakeUp : wakeUpList) {
-                                if (wakeUp.getId().equals(wakeUpID)) {
-                                    wakeUp.setPokeCounter(pokeCounter);
-                                    updatePokeInWakeupTabl(wakeUp);
-
-                                }
-                            }
-                        }
-                    });
-
-                } catch (InterruptedException | ExecutionException | MobileServiceException e) {
+                } catch (InterruptedException | ExecutionException  e) {
                     e.printStackTrace();
                 }
 
@@ -272,7 +281,21 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
                 return null;
             }
         });
+
         task.execute();
+
+        Eksempel
+
+        @SuppressLint("StaticFieldLeak")
+        RequestAsyncTask task = new RequestAsyncTask(mClient.getServiceFilter(), mClient.createConnection()) {
+            @Override
+            public void executeTask() {
+                super.executeTask();
+            }
+        };
+
+        Så skal der bare lige gennemskues hvordan man giver den de rigtige ting. ;)
+
     }
 
     private void updatePokeInWakeupTabl(final WakeUp wakeUp) {

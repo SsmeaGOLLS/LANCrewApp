@@ -2,6 +2,8 @@ package eamv.dmu17he.lancrewapp.model;
 
 import java.util.Calendar;
 
+import eamv.dmu17he.lancrewapp.activities.BookingsListOverviewActivity;
+
 /**
  * Created by smeag on 16-01-2018.
  */
@@ -15,6 +17,7 @@ public class BookingListViewItem {
     private String comment;
     private int poke;
     private String wakeUpID;
+    private BookingsListOverviewActivity activity;
 
     public String getTime() {return time;}
     public void setTime(String time) {this.time = time;}
@@ -43,5 +46,13 @@ public class BookingListViewItem {
 
     public void setWakeUpID(String wakeUpID) {
         this.wakeUpID = wakeUpID;
+    }
+
+    public BookingsListOverviewActivity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(BookingsListOverviewActivity activity) {
+        this.activity = activity;
     }
 }
