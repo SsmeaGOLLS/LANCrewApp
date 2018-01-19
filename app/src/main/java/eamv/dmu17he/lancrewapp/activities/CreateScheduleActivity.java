@@ -55,7 +55,7 @@ public class CreateScheduleActivity extends AppCompatActivity {
     private AzureServiceAdapter mAzureAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_schedule);
         initButtonAndProgressBar();
@@ -146,9 +146,8 @@ public class CreateScheduleActivity extends AppCompatActivity {
     }
 
     private void initCrewDropdown(){
-
         //get the spinner from the xml.
-        crewDropdown = (Spinner) findViewById(R.id.crewSpinner);
+        crewDropdown = findViewById(R.id.crewSpinner);
         //create a list of items for the spinner.
         String[] items = new String[]{"Crewcare", "Køkken", "Support", "IT", "Security"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
@@ -156,18 +155,32 @@ public class CreateScheduleActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         //set the spinners adapter to the previously created one.
         crewDropdown.setAdapter(adapter);
+       // getCrewMembers();
     }
 
-    private void getCrewMembers()throws ExecutionException, InterruptedException, MobileServiceException {
-        List<User> listUsers = mUserTable.where().field("crew").eq(crewDropdown.getSelectedItem().toString()).execute().get();
-        ArrayList<String> nickNameList = new ArrayList<String>();
-        for(User user : listUsers){
-            nickNameList.add(user.getNickName());
-        }
+    private void getCrewMembers(){
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    List<User> listUsers = mUserTable.where().field("crew").eq(crewDropdown.getSelectedItem().toString()).execute().get();
+                    ArrayList<String> nickNameList = new ArrayList<String>();
+                    for (User user : listUsers) {
+                        nickNameList.add(user.getNickName());
+                    }
+                    userDropdown = findViewById(R.id.userSpinner);
+                    //String[] nickList = nickNameList.toArray(new String[0]);
+                    ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, nickNameList);
+                    userDropdown.setAdapter(userAdapter);
+                }catch(ExecutionException e){
+                    e.printStackTrace();
+                }catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
 
-        userDropdown = (Spinner) findViewById(R.id.userSpinner);
-        ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, nickNameList );
-     //   nickNameList.toArray();
+        runAsyncTask(task);
 
     }
 
