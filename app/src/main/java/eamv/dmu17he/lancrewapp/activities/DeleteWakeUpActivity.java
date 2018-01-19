@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileSer
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +32,7 @@ import java.util.concurrent.ExecutionException;
 
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
+import eamv.dmu17he.lancrewapp.helper.GlobalUserSingleton;
 import eamv.dmu17he.lancrewapp.helper.ToDialogError;
 import eamv.dmu17he.lancrewapp.model.BookingListViewItem;
 import eamv.dmu17he.lancrewapp.model.Hall;
@@ -45,6 +48,8 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private AzureServiceAdapter mAzureAdapter;
     private AdapterView.OnItemSelectedListener onClicky;
+    List<Space> mspaceTable;
+    List<WakeUp> mwakeupTable;
 
     String hallName = "";
     TextView displaytime;
@@ -75,11 +80,10 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
         displayhall = findViewById(R.id.displayhall);
         displayrow = findViewById(R.id.displayrow);
         displaycolumn = findViewById(R.id.displaycolumn);
+        dataList();
 
-        timeList();
     }
-
-    private void timeList() {
+    private void dataList() {
         final Context mContext = this;
         final Activity mActivity = this;
 
@@ -88,14 +92,16 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    final List<WakeUp> mwakeupTime = mWakeUpTable.execute().get();
+                    mspaceTable = mSpaceTable.where().field("userName").eq(GlobalUserSingleton.getGlobals(mContext).theCurrentUser.getUsername().toString()).execute().get();
+                    mwakeupTable = mWakeUpTable.execute().get();
+
+                    Log.d("gås", String.valueOf(mSpaceTable.where().field("userName").eq(GlobalUserSingleton.getGlobals(mContext).theCurrentUser.getUsername())));
+
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            adapter = new ArrayAdapter<WakeUp>(mContext, android.R.layout.simple_spinner_dropdown_item, mwakeupTime);
-                            spinner.setAdapter(adapter);
-                            setListener();
+                            timeList();
                         }
                     });
                 } catch (InterruptedException e) {
@@ -110,6 +116,27 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
         };
         task.execute();
     }
+    private void timeList() {
+        final Context mContext = this;
+        final Activity mActivity = this;
+        final List<WakeUp> wakeUpTimes = new ArrayList<WakeUp>() {
+        };
+        Log.d("gås", String.valueOf(mspaceTable.isEmpty()));
+        for (Space space: mspaceTable) {
+
+            for(WakeUp wakeUp: mwakeupTable){
+
+                if(wakeUp.getId().equals(space.getWakeUpID()))    {
+                    wakeUpTimes.add(wakeUp);
+
+                }
+            }
+        }
+        adapter = new ArrayAdapter<WakeUp>(mContext, android.R.layout.simple_spinner_dropdown_item, wakeUpTimes);
+        spinner.setAdapter(adapter);
+        setListener();}
+
+
 
     private void setListener() {
         onClicky = new AdapterView.OnItemSelectedListener() {

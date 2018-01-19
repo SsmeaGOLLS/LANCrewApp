@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import eamv.dmu17he.lancrewapp.R;
+import eamv.dmu17he.lancrewapp.helper.GlobalUserSingleton;
 
 public class AdministrateActivity extends AppCompatActivity {
 
@@ -41,5 +42,9 @@ public class AdministrateActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        GlobalUserSingleton.getGlobals(this).theCurrentUser.getIsAdmin();
+
     }
+
 }

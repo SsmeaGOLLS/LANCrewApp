@@ -35,6 +35,7 @@ import java.util.concurrent.ExecutionException;
 
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
+import eamv.dmu17he.lancrewapp.helper.GlobalUserSingleton;
 import eamv.dmu17he.lancrewapp.helper.ToDialogError;
 import eamv.dmu17he.lancrewapp.model.Hall;
 import eamv.dmu17he.lancrewapp.model.Space;
@@ -188,6 +189,7 @@ public class BookAWakeUpActivity extends AppCompatActivity implements AdapterVie
                     space.setColumn((Integer)((Spinner)findViewById(R.id.pickcolumnspinner)).getSelectedItem());
                     space.setRow((Integer)((Spinner)findViewById(R.id.pickrowspinner)).getSelectedItem());
                     space.setHallName("" + ((Spinner)findViewById(R.id.pickhallspinner)).getSelectedItem());
+                    space.setUserName(GlobalUserSingleton.getGlobals(mActivity).theCurrentUser.getUsername());
                     mSpaceTable.insert(space);
 
                 } catch (InterruptedException | ExecutionException e) {

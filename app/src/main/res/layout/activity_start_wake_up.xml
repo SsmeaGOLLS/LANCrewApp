@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/bookwakeup"
+        android:layout_marginTop="60dp"
         android:background="@drawable/roundedbutton"
+        android:text="@string/bookwakeup"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,17 +25,18 @@
     <Button
         android:id="@+id/BookingsOverview"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="60dp"
-        android:text="@string/booking_overview"
         android:background="@drawable/roundedbutton"
+        android:text="@string/booking_overview"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BookWakeUp" />
+        app:layout_constraintTop_toBottomOf="@+id/mywakeup" />
 
     <Button
         android:id="@+id/Administrate"
@@ -52,6 +53,21 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BookingsOverview" />
+
+    <Button
+        android:id="@+id/mywakeup"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/roundedbutton"
+        android:text="@string/my_wakeup"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BookWakeUp" />
 
 
 </android.support.constraint.ConstraintLayout>

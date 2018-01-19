@@ -2,10 +2,14 @@ package eamv.dmu17he.lancrewapp.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -25,8 +29,13 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import eamv.dmu17he.lancrewapp.R;
-import eamv.dmu17he.lancrewapp.helper.*;
-import eamv.dmu17he.lancrewapp.model.*;
+import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
+import eamv.dmu17he.lancrewapp.helper.BookingListAdapter;
+import eamv.dmu17he.lancrewapp.helper.ToDialogError;
+import eamv.dmu17he.lancrewapp.model.BookingListViewItem;
+import eamv.dmu17he.lancrewapp.model.Hall;
+import eamv.dmu17he.lancrewapp.model.Space;
+import eamv.dmu17he.lancrewapp.model.WakeUp;
 
 public class BookingsListOverviewActivity extends AppCompatActivity {
     private MobileServiceClient mClient;
@@ -87,7 +96,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
                         }
                     });
                 } catch (final Exception e){
-                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
+
                     e.printStackTrace();
                 }
                 return null;
@@ -107,6 +116,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
                 booking.setTime(wakeUp.getTime());
                 booking.setComment(wakeUp.getComment());
                 booking.setPoke(wakeUp.getPokeCounter());
+                booking.setWakeUpID(wakeUp.getId());
                 List<Space> spaceList = mSpaceTable.where().field("wakeUpID").eq(wakeUp.getId()).execute().get();
                 if (spaceList.size() == 1) {
                     Space space = spaceList.get(0);
@@ -215,5 +225,73 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         mSpaceTable = mClient.getTable(Space.class);
         mHallTable = mClient.getTable(Hall.class);
         mWakeUpTable = mClient.getTable(WakeUp.class);
+    }
+
+    public void updatePoke(View view, String wakeUpID, Context mContext) {
+        final Button poke = (Button) view.findViewById(R.id.pokebutton);
+        int p = (Integer.parseInt(poke.getText().toString()));
+
+        int x = (1 +(Integer.parseInt(poke.getText().toString())));
+        poke.setText("" + (1 +(Integer.parseInt(poke.getText().toString()))));
+        Log.d("beef", wakeUpID);
+
+        updatePokeInWakeupTable(x, wakeUpID, mContext);
+
+    }
+
+    private void updatePokeInWakeupTable(final int pokeCounter,final String wakeUpID, final Context mContext) {
+        final Activity mActivity = this;
+
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = runAsyncTask(new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                try {
+                    final List<WakeUp> wakeUpList = mWakeUpTable.execute().get();
+
+
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (WakeUp wakeUp : wakeUpList) {
+                                if (wakeUp.getId().equals(wakeUpID)) {
+                                    wakeUp.setPokeCounter(pokeCounter);
+                                    updatePokeInWakeupTabl(wakeUp);
+
+                                }
+                            }
+                        }
+                    });
+
+                } catch (InterruptedException | ExecutionException | MobileServiceException e) {
+                    e.printStackTrace();
+                }
+
+
+                return null;
+            }
+        });
+        task.execute();
+    }
+
+    private void updatePokeInWakeupTabl(final WakeUp wakeUp) {
+        final Activity mActivity = this;
+
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = runAsyncTask(new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                mWakeUpTable.update(wakeUp);
+
+
+
+
+                return null;
+            }
+        });
+        task.execute();
+
+
     }
 }

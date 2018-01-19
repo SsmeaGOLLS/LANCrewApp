@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import eamv.dmu17he.lancrewapp.R;
+import eamv.dmu17he.lancrewapp.activities.BookingsListOverviewActivity;
 import eamv.dmu17he.lancrewapp.model.BookingListViewItem;
 
 /**
@@ -20,6 +21,7 @@ import eamv.dmu17he.lancrewapp.model.BookingListViewItem;
 public class BookingListAdapter extends ArrayAdapter<BookingListViewItem> {
     Context mContext;
     int mLayoutResourceId;
+    View row;
 
     public BookingListAdapter(Context context, int layoutResourceId) {
         super(context, layoutResourceId);
@@ -30,7 +32,7 @@ public class BookingListAdapter extends ArrayAdapter<BookingListViewItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View row = convertView;
+        row = convertView;
 
         final BookingListViewItem currentItem = getItem(position);
 
@@ -64,11 +66,9 @@ public class BookingListAdapter extends ArrayAdapter<BookingListViewItem> {
         poke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int p = (Integer.parseInt(poke.getText().toString()));
+                BookingsListOverviewActivity b = new BookingsListOverviewActivity();
+                b.updatePoke(row, currentItem.getWakeUpID(), mContext);
 
-                int x = (1 +(Integer.parseInt(poke.getText().toString())));
-                poke.setText("" + (1 +(Integer.parseInt(poke.getText().toString()))));
-                currentItem.setPoke(x);
             }
         });
         final Button delete = (Button) row.findViewById(R.id.deletebutton);

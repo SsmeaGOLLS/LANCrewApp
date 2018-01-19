@@ -14,6 +14,7 @@ public class BookingListViewItem {
     private String nickName;
     private String comment;
     private int poke;
+    private String wakeUpID;
 
     public String getTime() {return time;}
     public void setTime(String time) {this.time = time;}
@@ -35,4 +36,12 @@ public class BookingListViewItem {
 
     public int getPoke() {return poke;}
     public void setPoke(int poke) {this.poke = poke;}
+
+    public String getWakeUpID() {
+        return wakeUpID;
+    }
+
+    public void setWakeUpID(String wakeUpID) {
+        this.wakeUpID = wakeUpID;
+    }
 }

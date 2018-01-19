@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 public class WakeUp {
     private int pokeCounter;
+    @com.google.gson.annotations.SerializedName("id")
     private String id;
     private String time;
     private String comment;
