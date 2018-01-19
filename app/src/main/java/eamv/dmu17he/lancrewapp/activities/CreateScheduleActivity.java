@@ -53,6 +53,7 @@ public class CreateScheduleActivity extends AppCompatActivity {
     private MobileServiceTable<User> mUserTable;
     private ProgressBar mProgressBar;
     private AzureServiceAdapter mAzureAdapter;
+    private ArrayAdapter<String> userAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -62,6 +63,8 @@ public class CreateScheduleActivity extends AppCompatActivity {
         initMobileService();
         initCrewDropdown();
         createTable();
+
+       userAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
     }
 
     public void saveSchedule(View view) throws ExecutionException, InterruptedException{
@@ -159,24 +162,34 @@ public class CreateScheduleActivity extends AppCompatActivity {
     }
 
     private void getCrewMembers(){
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>()
+        {
             @Override
-            protected Void doInBackground(Void... params) {
-                try {
+            protected Void doInBackground(Void... params)
+            {
+                try
+                {
                     List<User> listUsers = mUserTable.where().field("crew").eq(crewDropdown.getSelectedItem().toString()).execute().get();
                     ArrayList<String> nickNameList = new ArrayList<String>();
-                    for (User user : listUsers) {
+                    for (User user : listUsers)
+                    {
                         nickNameList.add(user.getNickName());
                     }
                     userDropdown = findViewById(R.id.userSpinner);
                     //String[] nickList = nickNameList.toArray(new String[0]);
-                    ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, nickNameList);
+
+                    userAdapter.addAll(nickNameList);
                     userDropdown.setAdapter(userAdapter);
-                }catch(ExecutionException e){
-                    e.printStackTrace();
-                }catch(InterruptedException e) {
+                }
+                catch(ExecutionException e)
+                {
                     e.printStackTrace();
                 }
+                catch(InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                return null;
             }
         };
 
