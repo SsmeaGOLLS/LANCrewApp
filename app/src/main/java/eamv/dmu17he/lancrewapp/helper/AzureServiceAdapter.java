@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class AzureServiceAdapter {
-    private String mMobileBackendUrl = "https://crewmessengerapp.azurewebsites.net";
+    private String mMobileBackendUrl = "https://lancrewapp.azurewebsites.net";
     private Context mContext;
     private static MobileServiceClient mClient;
     private static AzureServiceAdapter mInstance = null;
@@ -37,8 +37,6 @@ public class AzureServiceAdapter {
     public static void Initialize() {
         if (mInstance == null) {
             mInstance = new AzureServiceAdapter();
-        } else {
-            throw new IllegalStateException("AzureServiceAdapter is already initialized");
         }
     }
 
@@ -63,8 +61,8 @@ public class AzureServiceAdapter {
                 @Override
                 public OkHttpClient createOkHttpClient() {
                     OkHttpClient client = new OkHttpClient();
-                    client.setReadTimeout(60, TimeUnit.SECONDS);
-                    client.setWriteTimeout(60, TimeUnit.SECONDS);
+                    client.setReadTimeout(20, TimeUnit.SECONDS);
+                    client.setWriteTimeout(20, TimeUnit.SECONDS);
                     return client;
                 }
             });

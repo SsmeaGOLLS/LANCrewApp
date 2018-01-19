@@ -19,7 +19,6 @@ public class Message {
     private String memberId;
 
 
-
     public Message() {
 
     }

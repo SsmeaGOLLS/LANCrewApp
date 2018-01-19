@@ -56,14 +56,6 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         final TextView messageTextView = (TextView) row.findViewById(R.id.messageText);
         final TextView timeTextView = (TextView) row.findViewById(R.id.time);
 
-
-        // Skal ændres til at hente Member name ved brug af memberId
-        senderTextView.setText(message.getMemberId());
-        messageTextView.setText(message.getText());
-
-
-        //message.getcrea
-
         timeTextView.setText(MessageTime.display(message.getCreatedAt()));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -71,7 +63,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         if (mContext instanceof CrewMessageActivity) {
             CrewMessageActivity activity = (CrewMessageActivity) mContext;
 
-            if (message.getMemberId().equals(activity.getMessageController().getMemberId()))
+            if (message.getMemberId().equals(GlobalUserSingleton.getGlobals(mContext).theCurrentUser.getId()))
             {
                 params.setMargins(50, 0, 0, 0);
             messageTextView.setBackgroundColor(activity.getResources().getColor(R.color.chatcolor2));
@@ -79,6 +71,12 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                 params.setMargins(0, 0, 50, 0);
                 messageTextView.setBackgroundColor(activity.getResources().getColor(R.color.chatcolor1));
             }
+
+            Log.i("message memberid","xd "+message.getMemberId());
+            Log.i("NICKNAME: XD",activity.getNickName(message.getMemberId()));
+            senderTextView.setText(activity.getNickName(message.getMemberId()));
+            messageTextView.setText(message.getText());
+
         }
 
 

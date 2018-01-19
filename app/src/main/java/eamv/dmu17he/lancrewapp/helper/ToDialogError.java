@@ -15,7 +15,7 @@ public class ToDialogError {
 
     public static void initToDialogError(){
         if (mToDialogError == null) {
-            mToDialogError = new ToDialogError();
+        mToDialogError = new ToDialogError();
         } else {
             throw new IllegalStateException("ToDialogError is already initialized");
         }
@@ -71,7 +71,7 @@ public class ToDialogError {
      * @param title
      *            The dialog title
      */
-    private void createAndShowDialog(final String message, final String title, Activity activity) {
+    public void createAndShowDialog(final String message, final String title, Activity activity) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         builder.setMessage(message);

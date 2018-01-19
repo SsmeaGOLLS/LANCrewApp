@@ -1,21 +1,31 @@
 package eamv.dmu17he.lancrewapp.activities;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import eamv.dmu17he.lancrewapp.R;
-import eamv.dmu17he.lancrewapp.helper.InputValidation;
+import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
+import eamv.dmu17he.lancrewapp.helper.GlobalUserSingleton;
+import eamv.dmu17he.lancrewapp.helper.ToDialogError;
 import eamv.dmu17he.lancrewapp.model.User;
-import eamv.dmu17he.lancrewapp.sql.sqLiteDatabase;
 //import eamv.dmu17he.lancrewappprototype.sql.DBHelper;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,8 +43,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private AppCompatTextView textViewLinkRegister;
 
-    private InputValidation inputValidation;
     private User user;
+
+
+    private MobileServiceClient mClient;
+    private MobileServiceTable<User> mTable;
+    private ProgressBar mProgressBar;
+    private AzureServiceAdapter mAzureAdapter;
+    List<User> mUserList;
+    // public static final int GOOGLE_LOGIN_REQUEST_CODE=1;
+    private static boolean firstRun = true;
 
 
 
@@ -42,10 +60,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if(firstRun) {
+            AzureServiceAdapter.Initialize();
+            ToDialogError.initToDialogError();
+            firstRun = false;
+        }
         getSupportActionBar().hide();
         initViews();
         initListeners();
-        initObjects();
+        initMobileService();
+
+        GlobalUserSingleton.getGlobals(this).loadGlobalInfoFromFile(this);
+
+
     }
     private void initViews(){
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
@@ -66,15 +93,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textViewLinkRegister.setOnClickListener(this);
     }
 
-    private void initObjects(){
-        inputValidation = new InputValidation(activity);
-    }
 
     @Override
     public void onClick(View v){
-        switch (v.getId()){
+        // try {
+        switch (v.getId()) {
             case R.id.appCompatButtonLogin:
-                verifyFromDAO();
+                EditText userName =(EditText)findViewById(R.id.textInputEditTextUsername);
+                EditText password =(EditText)findViewById(R.id.textInputEditTextPassword);
+
+                new checkUser().execute(new String[]{userName.getText().toString(),password.getText().toString()});
                 break;
 
             case R.id.textViewLinkRegister:
@@ -82,39 +110,95 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intentRegister);
                 break;
         }
+        //}
+        //catch (InterruptedException | ExecutionException e ){}
     }
 
-    private void verifyFromDAO() {
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextUsername, textInputLayoutUsername, getString(R.string.error_message_username))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextValidUsername(textInputEditTextUsername, textInputLayoutUsername, getString(R.string.error_message_username), this)) {
-            Log.d("Jeg klarede den ikke", "fix mig tak");
-            return;
-        }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_username))) {
-            return;
-        }
-        sqLiteDatabase db = sqLiteDatabase.getDatabase(this);
-        String username = textInputEditTextUsername.getText().toString();
-        String password = textInputEditTextPassword.getText().toString();
-        String validUser = db.uDAO().findUserFromName(textInputEditTextUsername.getText().toString()).getUsername();
+    private class checkUser extends AsyncTask<String, Void, User>
+    {
+        @Override
+        protected User doInBackground(String... params)
+        {
+            try
+            {
+                Log.wtf("nu", "params"+params[0]+" "+params[1]);
+
+                List<User> temp=mTable.where().field("userName").
+                        eq(textInputEditTextUsername.getText().toString()).execute().get();
+
+                if(temp.size()!=0)
+                {
+                    //check password
+
+                    if(temp.get(0).getPassword().equals(textInputEditTextPassword.getText().toString()))
+                    {
+                        return temp.get(0);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (InterruptedException e)
+            {
+
+            }
+            catch (ExecutionException e)
+            {
+
+            }
 
 
-        if (!(validUser==null) && validUser.equals(textInputEditTextUsername.getText().toString())){
-            Intent menuIntent = new Intent(activity, MenuActivity.class);
-            startActivity(menuIntent);
-
-        }
-        else {
-            Snackbar.make(nestedScrollView, getString(R.string.error_valid_username_password), Snackbar.LENGTH_LONG).show();
-        }
+            return null;
         }
 
+        @Override
+        protected void onPostExecute(User foundUser)
+        {
+            if(foundUser!=null)
+            {
+                loggedIn(foundUser);
+            }
+            else
+            {
+                failedLogin();
+            }
+        }
+    }
+
+    public void loggedIn(User theUser)
+    {
+
+
+        //set global with the current user
+        GlobalUserSingleton.getGlobals(this).theCurrentUser=theUser;
+
+        Intent intent=new Intent(this, MenuActivity.class);
+        startActivity(intent);
+        //go to menuScreen
+    }
+
+    public void failedLogin()
+    {
+        Toast toast = Toast.makeText(this, "Failed Login, check username and password", Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
 
     private void emptyInputEditText(){
         textInputEditTextUsername.setText(null);
         textInputEditTextPassword.setText(null);
+    }
+
+    private void initMobileService() {
+        mAzureAdapter = AzureServiceAdapter.getInstance();
+        mAzureAdapter.updateClient(this, this, mProgressBar);
+        mClient = mAzureAdapter.getClient();
+        mTable = mClient.getTable(User.class);
     }
 }

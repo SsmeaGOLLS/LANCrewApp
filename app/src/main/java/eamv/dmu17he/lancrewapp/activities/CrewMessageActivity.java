@@ -11,37 +11,29 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.SettableFuture;
-import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceException;
-import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
-import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilter;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterRequest;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
-import com.squareup.okhttp.OkHttpClient;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
+import eamv.dmu17he.lancrewapp.helper.GlobalUserSingleton;
 import eamv.dmu17he.lancrewapp.helper.MessageAdapter;
-import eamv.dmu17he.lancrewapp.helper.MessageController;
 import eamv.dmu17he.lancrewapp.model.Message;
+import eamv.dmu17he.lancrewapp.model.User;
 
 public class CrewMessageActivity extends Activity {
 
     private AzureServiceAdapter azureService;
 
-    // Bruges kun til at opbevare crewid og memberid
-    // Skal erstattes med CurrentUser klasse
-    private MobileServiceTable<Message> mToDoTable;
+    private MobileServiceTable<Message> messagesTable;
+
+    private MobileServiceTable<User> usersTable;
+
+    private static List<User> users = new ArrayList<User>();
 
     static Handler h;
     static Thread t;
@@ -50,8 +42,6 @@ public class CrewMessageActivity extends Activity {
      * Adapter to sync the items list with the view
      */
     private MessageAdapter mAdapter;
-
-    private MessageController messageController;
 
     /**
      * Initializes the activity
@@ -63,12 +53,26 @@ public class CrewMessageActivity extends Activity {
 
             // Load the items from the Mobile Service
             startMessenger();
-
     }
 
-    public MessageController getMessageController()
+    public String getNickName(String userid)
     {
-        return messageController;
+        for(User u : users)
+            if (u.getId().equals(userid))
+                return u.getUsername();
+        return null;
+    }
+
+    public void updateUsers()
+    {
+        try {
+            users = usersTable.execute().get();
+            for(User u : users)
+            {
+                Log.i("user xd",u.getUsername());
+            }
+            Log.i("SIZE:",users.size()+" size");
+        } catch(Exception e){users = new ArrayList<User>();}
     }
 
     private void refreshItemsFromTable() {
@@ -76,43 +80,47 @@ public class CrewMessageActivity extends Activity {
         // Get the items that weren't marked as completed and add them in the
         // adapter
 
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                try {
-                    final List<Message> results = refreshItemsFromMobileServiceTable();
-                    List<Message> test = mToDoTable.execute().get();
-                    runOnUiThread(new Runnable() {
+                    AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
                         @Override
-                        public void run() {
-                            mAdapter.clear();
-                            for (Message item : results) {
-                                mAdapter.add(item);
-                            }
-                            h.sendEmptyMessage(0);
-                        }
-                    });
+                        protected Void doInBackground(Void... params) {
+
+                            try {
+                                updateUsers();
+                                final List<Message> results = refreshItemsFromMobileServiceTable();
+                                List<Message> test = messagesTable.execute().get();
+                                Log.i("refreshItems","refresher items");
+                                Log.i("results",results.size()+" size");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mAdapter.clear();
+                                        for (Message item : results) {
+                                            mAdapter.add(item);
+                                        }
+                                        h.sendEmptyMessage(0);
+                                    }
+                                });
                 } catch (final Exception e){}
                 return null;
             }
         };
-
         runAsyncTask(task);
     }
 
     private List<Message> refreshItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
-        return mToDoTable.where().field("crewId").eq(messageController.getCrewId()).execute().get();
+        Log.i("SQL QUERY", GlobalUserSingleton.getGlobals(this).theCurrentUser.getCrew());
+        return messagesTable.where().field("crewId").eq(GlobalUserSingleton.getGlobals(this).theCurrentUser.getCrew()).execute().get();
     }
 
     private void startMessenger()
     {
-        messageController = new MessageController();
-
-        AzureServiceAdapter.Initialize();
+        Log.i("startMessagenger","starter op");
+        //AzureServiceAdapter.Initialize();
         azureService = AzureServiceAdapter.getInstance();
         azureService.updateClient(this,this,null);
-        mToDoTable = azureService.getClient().getTable(Message.class);
+        messagesTable = azureService.getClient().getTable(Message.class);
+        usersTable = azureService.getClient().getTable(User.class);
+        Log.i("USERS",usersTable.getTableName());
 
         mAdapter = new MessageAdapter(this, R.layout.row_list_message);
         ListView listViewToDo = (ListView) findViewById(R.id.listViewToDo);
@@ -122,6 +130,7 @@ public class CrewMessageActivity extends Activity {
         {
             public void handleMessage(android.os.Message msg)
             {
+                Log.i("handleMessage","ok");
                 h.post(t);
             }
         };
@@ -138,12 +147,14 @@ public class CrewMessageActivity extends Activity {
     public void sendMessage(View view)
     {
         EditText editText = (EditText) findViewById(R.id.editText);
-
+        Log.i("sendMessage","Sender besked");
+        Log.i("CrewName", GlobalUserSingleton.getGlobals(this).theCurrentUser.getCrew());
+        Log.i("MemberID", GlobalUserSingleton.getGlobals(this).theCurrentUser.getId());
         Message m = new Message();
         m.setText(editText.getText()+"");
-        m.setCrewId(messageController.getCrewId());
-        m.setMemberId(messageController.getMemberId());
-        mToDoTable.insert(m);
+        m.setCrewId(GlobalUserSingleton.getGlobals(this).theCurrentUser.getCrew());
+        m.setMemberId(GlobalUserSingleton.getGlobals(this).theCurrentUser.getId());
+        messagesTable.insert(m);
         editText.setText("");
     }
 
