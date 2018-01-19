@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import eamv.dmu17he.lancrewapp.R;
+import eamv.dmu17he.lancrewapp.model.Schedule;
 import eamv.dmu17he.lancrewapp.model.User;
 
 /**
