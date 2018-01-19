@@ -36,6 +36,12 @@ public class MenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
+  
+    public void goToMessagesActivity(View view)
+    {
+        Intent intent = new Intent(this, CrewMessageActivity.class);
+        startActivity(intent);
+    }
 
 
 }

@@ -83,6 +83,7 @@
         android:layout_marginTop="280dp"
         android:background="@drawable/button_rounded_corners"
         android:fontFamily="@font/kabrio"
+        android:onClick="goToMessagesActivity"
         android:text="@string/message"
         android:textSize="26dp"
         app:layout_constraintBottom_toBottomOf="parent"

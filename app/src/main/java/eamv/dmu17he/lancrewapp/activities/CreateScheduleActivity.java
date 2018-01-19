@@ -131,9 +131,11 @@ public class CreateScheduleActivity extends AppCompatActivity {
     private void createTable() {
         try {
             initLocalStore().get();
-          //  ListView listViewSchedule = (ListView) findViewById(R.id.scheduleListView);
-          //  listViewSchedule.setAdapter(mScheduleAdapter);
-          //  refreshItemsFromTable();
+          
+            //  ListView listViewSchedule = (ListView) findViewById(R.id.scheduleListView);
+            //  listViewSchedule.setAdapter(mScheduleAdapter);
+            //  refreshItemsFromTable();
+
         } catch (InterruptedException | ExecutionException | MobileServiceLocalStoreException e) {
             ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
         }
@@ -153,17 +155,20 @@ public class CreateScheduleActivity extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 try {
 
-                //    final Schedule entity = addItemInTable(schedule);
+                    //    final Schedule entity = addItemInTable(schedule);
 
-                  //  final Schedule entity1 = addItemInTable(schedule1);
+                    //  final Schedule entity1 = addItemInTable(schedule1);
                     //final Schedule entity2 = addItemInTable(schedule2);
-                   // final Schedule entity3 = addItemInTable(schedule3);
+                    // final Schedule entity3 = addItemInTable(schedule3);
+
 
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                     //       mScheduleAdapter.add(entity);
+
+                           //       mScheduleAdapter.add(entity);
+
 
                         }
                     });
@@ -286,4 +291,3 @@ public class CreateScheduleActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
-

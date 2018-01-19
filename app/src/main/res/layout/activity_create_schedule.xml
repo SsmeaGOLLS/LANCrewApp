@@ -197,5 +197,4 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/nickNameTV"
         app:layout_constraintTop_toBottomOf="@+id/endTimeET" />
-
 </android.support.constraint.ConstraintLayout>
