@@ -162,7 +162,7 @@ public class ScheduleActivity extends AppCompatActivity {
                     tableDefinition.put("id", ColumnDataType.String);
                     tableDefinition.put("startTime", ColumnDataType.String);
                     tableDefinition.put("endTime", ColumnDataType.String);
-                    tableDefinition.put("date", ColumnDataType.String);
+                    tableDefinition.put("date", ColumnDataType.Date);
                     tableDefinition.put("title", ColumnDataType.String);
                     tableDefinition.put("nickName", ColumnDataType.String);
                     tableDefinition.put("gaName", ColumnDataType.String);

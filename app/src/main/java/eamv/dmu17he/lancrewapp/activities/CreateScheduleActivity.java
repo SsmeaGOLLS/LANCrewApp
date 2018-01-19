@@ -158,7 +158,7 @@ public class CreateScheduleActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         //set the spinners adapter to the previously created one.
         crewDropdown.setAdapter(adapter);
-       // getCrewMembers();
+        getCrewMembers();
     }
 
     private void getCrewMembers(){
@@ -169,17 +169,23 @@ public class CreateScheduleActivity extends AppCompatActivity {
             {
                 try
                 {
-                    List<User> listUsers = mUserTable.where().field("crew").eq(crewDropdown.getSelectedItem().toString()).execute().get();
-                    ArrayList<String> nickNameList = new ArrayList<String>();
-                    for (User user : listUsers)
-                    {
-                        nickNameList.add(user.getNickName());
-                    }
-                    userDropdown = findViewById(R.id.userSpinner);
-                    //String[] nickList = nickNameList.toArray(new String[0]);
+                    final List<User> listUsers = mUserTable.where().field("crew").eq(crewDropdown.getSelectedItem().toString()).execute().get();
+                    final ArrayList<String> nickNameList = new ArrayList<String>();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (User user : listUsers)
+                            {
+                                nickNameList.add(user.getNickName());
+                            }
+                            userDropdown = findViewById(R.id.userSpinner);
+                            //String[] nickList = nickNameList.toArray(new String[0]);
 
-                    userAdapter.addAll(nickNameList);
-                    userDropdown.setAdapter(userAdapter);
+                            userAdapter.addAll(nickNameList);
+                            userDropdown.setAdapter(userAdapter);
+                        }
+                    });
+
                 }
                 catch(ExecutionException e)
                 {

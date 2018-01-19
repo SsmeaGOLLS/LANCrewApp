@@ -9,6 +9,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Schedule {
@@ -28,7 +29,7 @@ public class Schedule {
     private String endTime;
 
     @ColumnInfo (name = "date")
-    private String date;
+    private Date date;
 
     @ColumnInfo (name = "title")
     private String title;
@@ -61,11 +62,11 @@ public class Schedule {
         this.endTime = endTime;
     }
 
-    public String getDate(){
+    public Date getDate(){
         return date;
     }
 
-    public void setDate(String date){
+    public void setDate(Date date){
         this.date = date;
     }
 
