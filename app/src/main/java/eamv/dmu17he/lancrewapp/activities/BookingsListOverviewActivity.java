@@ -244,15 +244,15 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         poke.setText("" + (1 +(Integer.parseInt(poke.getText().toString()))));
         Log.d("beef", wakeUpID);
 
-        currentItem.setPoke(x);
-                updatePokeInWakeupTable(x, wakeUpID, mContext);
+        //currentItem.setPoke(x);
+                updatePokeInWakeupTable(x, wakeUpID, currentItem);
 
 
 
 
     }
 
-    private void updatePokeInWakeupTable(final int pokeCounter,final String wakeUpID, final Context mContext) {
+    private void updatePokeInWakeupTable(final int pokeCounter,final String wakeUpID, final BookingListViewItem currentItem) {
         final Activity mActivity = this;
 
 
@@ -266,11 +266,33 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
                     List<WakeUp> wakeUpList = mWakeUpTable.where().field("id").eq(wakeUpID).execute().get();
                     if(wakeUpList.size()>0) {
                         Log.d("ey", "doInBackground: ");
-                        WakeUp wakeup = wakeUpList.get(0);
+                        final WakeUp wakeup = wakeUpList.get(0);
                         wakeup.setPokeCounter(pokeCounter);
-                        WakeUp entity = mWakeUpTable.update(wakeup).get();
+                        final WakeUp entity = mWakeUpTable.update(wakeup).get();
 
-                        Log.d("hey", String.valueOf(wakeup.getPokeCounter()));
+
+                        BookingsListOverviewActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                int x =mBookingAdapter.getPosition(currentItem);
+                                int y = results.indexOf(currentItem);
+                                results.remove(y);
+
+
+
+                                //mBookingAdapter.remove(currentItem);
+                                currentItem.setPoke(entity.getPokeCounter());
+                               
+
+                               // results.add(y,currentItem);
+                                Log.d("hey", "wee");
+
+
+                                mBookingAdapter.notifyDataSetChanged();
+
+                            }
+                        });
+
 
                     }
 
@@ -285,7 +307,11 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         };
         task.execute();
 
+
+
     }
+
+
 
     private void updatePokeInWakeupTabl(final WakeUp wakeUp) {
         final Activity mActivity = this;

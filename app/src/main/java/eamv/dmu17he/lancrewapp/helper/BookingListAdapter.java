@@ -62,7 +62,7 @@ public class BookingListAdapter extends ArrayAdapter<BookingListViewItem> {
         comment.setText(currentItem.getComment());
         comment.setTextColor(Color.BLACK);
         final Button poke = (Button) row.findViewById(R.id.pokebutton);
-
+        poke.setText(String.valueOf(currentItem.getPoke()));
         poke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
