@@ -13,13 +13,10 @@ import eamv.dmu17he.lancrewapp.helper.ToDialogError;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button button;
-    private ProgressBar mProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
     }
 
     public void goToScheduleActivity(View view){

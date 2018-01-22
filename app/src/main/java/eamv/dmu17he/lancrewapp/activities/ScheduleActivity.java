@@ -65,44 +65,10 @@ public class ScheduleActivity extends AppCompatActivity {
             listViewSchedule.setAdapter(mScheduleAdapter);
             refreshItemsFromTable();
         } catch (InterruptedException | ExecutionException | MobileServiceLocalStoreException e) {
-        ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
-    }
-    }
-
-    public void addItem(View view) {
-        if (mClient == null) {
-            return;
+            ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
         }
-
-        final Activity mActivity = this;
-
-        // Insert the new item
-        @SuppressLint("StaticFieldLeak") //Just to suppress warning
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                } catch (final Exception e) {
-                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        };
-        runAsyncTask(task);
     }
 
-    public Schedule addItemInTable(Schedule item) throws ExecutionException, InterruptedException {
-        Schedule entity = mTable.insert(item).get();
-        return entity;
-    }
     public void refreshItems(View view){
         refreshItemsFromTable();
     }
@@ -136,7 +102,7 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         };
 
-        runAsyncTask(task);
+        task.execute();
     }
 
     private List<Schedule> refreshItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
@@ -181,15 +147,7 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         };
 
-        return runAsyncTask(task);
-    }
-
-    public AsyncTask<Void, Void, Void> runAsyncTask(AsyncTask<Void, Void, Void> task) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            return task.execute();
-        }
+        return task.execute();
     }
 
     private void initButtonAndProgressBar() {
@@ -216,7 +174,7 @@ public class ScheduleActivity extends AppCompatActivity {
     }
 
     private void AdminCreateSchedule(){
-        if(GlobalUserSingleton.getGlobals(this).theCurrentUser.getIsAdmin() == true){
+        if(GlobalUserSingleton.getGlobals(this).theCurrentUser.getIsAdmin()){
             findViewById(R.id.createSchedule).setVisibility(View.VISIBLE);
         }
         else {
