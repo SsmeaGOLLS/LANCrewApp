@@ -42,37 +42,49 @@ public class BookingListAdapter extends ArrayAdapter<BookingListViewItem> {
         }
 
         row.setTag(currentItem);
+
         final TextView time = (TextView) row.findViewById(R.id.timetextview);
         time.setText(currentItem.getTime().toString());
         time.setTextSize(20f);
         time.setTextColor(Color.BLACK);
+
         final TextView row1 = (TextView) row.findViewById(R.id.rowtextview);
         row1.setText("" + currentItem.getRow());
         row1.setTextColor(Color.BLACK);
+
         final TextView hallName = (TextView) row.findViewById(R.id.hallnametextview);
         hallName.setText(currentItem.getHallName());
         hallName.setTextColor(Color.BLACK);
+
         final TextView column = (TextView) row.findViewById(R.id.columntextview);
         column.setText("" + currentItem.getColumn());
         column.setTextColor(Color.BLACK);
+
         final TextView userName = (TextView) row.findViewById(R.id.usernametextview);
         userName.setText(currentItem.getNickName());
         userName.setTextColor(Color.BLACK);
+
         final TextView comment = (TextView) row.findViewById(R.id.commenttextview);
         comment.setText(currentItem.getComment());
         comment.setTextColor(Color.BLACK);
+
         final Button poke = (Button) row.findViewById(R.id.pokebutton);
-        poke.setText(String.valueOf(currentItem.getPoke()));
+        poke.setText(String.valueOf("poke(" + currentItem.getPoke() + ")"));
         poke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentItem.getActivity().updatePoke(row, currentItem.getWakeUpID(), mContext, poke, currentItem);
-
-
+                currentItem.getActivity().updatePoke(poke, currentItem);
             }
         });
-        final Button delete = (Button) row.findViewById(R.id.deletebutton);
 
+        final Button delete = (Button) row.findViewById(R.id.deletebutton);
+        delete.setText("Delete");
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentItem.getActivity().deleteWakeUpAndSpace(currentItem);
+            }
+        });
         return row;
     }
 }

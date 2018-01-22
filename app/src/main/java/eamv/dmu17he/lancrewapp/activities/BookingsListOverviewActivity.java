@@ -82,7 +82,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         final Activity mActivity = this;
 
         // <-- Just to suppress warning
-                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -95,9 +95,8 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
 
                             mBookingAdapter.clear();
 
-                            for (BookingListViewItem item : results) {
-                                mBookingAdapter.add(item);
-                            }
+                            mBookingAdapter.addAll(results);
+
                         }
                     });
                 } catch (final Exception e){
@@ -107,14 +106,13 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
                 return null;
             }
         };
-        runAsyncTask(task); 
+        runAsyncTask(task);
     }
 
     private List<BookingListViewItem> refreshBookingListView() throws InterruptedException, ExecutionException, MobileServiceException {
         List<BookingListViewItem> merge = new ArrayList<>();
         List<WakeUp> WakeUps = refreshWakeUpFromMobileServiceTable();
         if(!WakeUps.isEmpty()){
-            System.out.println("1212");
             BookingListViewItem booking;
             for (WakeUp wakeUp : WakeUps){
                 booking = new BookingListViewItem();
@@ -233,23 +231,27 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         mWakeUpTable = mClient.getTable(WakeUp.class);
     }
 
-    public void updatePoke(View view, final String wakeUpID, Context mContext, Button poke, BookingListViewItem currentItem) {
+    public void updatePoke( Button poke, final BookingListViewItem currentItem) {
+        final Activity mActivity = this;
+        Log.d("before", "" +currentItem.getPoke());
+        final int x = (1 + currentItem.getPoke());
+        Log.d("after", "" +x);
+        poke.setText("poke(" + x + ")");
+        currentItem.setPoke(x);
 
-        final int x = (1 +(Integer.parseInt(poke.getText().toString())));
-        poke.setText("" + (1 +(Integer.parseInt(poke.getText().toString()))));
-
+        @SuppressLint("StaticFieldLeak")
         AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    List<WakeUp> wakeUpList = mWakeUpTable.where().field("id").eq(wakeUpID).execute().get();
+                    List<WakeUp> wakeUpList = mWakeUpTable.where().field("id").eq(currentItem.getWakeUpID()).execute().get();
                     if(wakeUpList.size()>0) {
                         final WakeUp wakeup = wakeUpList.get(0);
                         wakeup.setPokeCounter(x);
                         final WakeUp entity = mWakeUpTable.update(wakeup).get();
                     }
                 } catch (InterruptedException | ExecutionException  e) {
-                    e.printStackTrace();
+                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error :)", mActivity);
                 }
                 return null;
             }
@@ -257,4 +259,32 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         task.execute();
     }
 
+    public void deleteWakeUpAndSpace(final BookingListViewItem currentItem) {
+
+        @SuppressLint("StaticFieldLeak")
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    List<WakeUp> wakeUpList = mWakeUpTable.where().field("id").eq(currentItem.getWakeUpID()).execute().get();
+                    List<Space> spaceList = mSpaceTable.where().field("wakeUpID").eq(currentItem.getWakeUpID()).execute().get();
+                    if (wakeUpList.size() > 0) {
+                        mWakeUpTable.delete(wakeUpList.get(0));
+                    }
+                    if(spaceList.size()>0){
+                        mSpaceTable.delete(spaceList.get(0));
+                    }
+                    mBookingAdapter.remove(currentItem);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+        task.execute();
+
+    }
 }

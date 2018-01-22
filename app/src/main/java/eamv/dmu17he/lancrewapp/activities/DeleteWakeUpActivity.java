@@ -271,6 +271,7 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
                         mSpaceTable.delete(space);
                     }
                     mWakeUpTable.delete(selected).get();
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {

@@ -33,7 +33,6 @@
         <activity android:name=".activities.BookingsListOverviewActivity" />
         <activity android:name=".activities.CreateHallActivity" />
         <activity android:name=".activities.EditOrDeleteHallActivity" />
-        <activity android:name=".activities.PickSpaceActivity" />
         <activity android:name=".activities.DeleteWakeUpActivity" />
         <activity android:name=".activities.WakeUpDetailsActivity" />
             android:name=".activities.ScheduleActivity"

@@ -3,9 +3,7 @@ package eamv.dmu17he.lancrewapp.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,12 +25,8 @@ import java.util.concurrent.ExecutionException;
 
 import eamv.dmu17he.lancrewapp.R;
 import eamv.dmu17he.lancrewapp.helper.AzureServiceAdapter;
-import eamv.dmu17he.lancrewapp.helper.BookingListAdapter;
 import eamv.dmu17he.lancrewapp.helper.ToDialogError;
-import eamv.dmu17he.lancrewapp.model.Controller;
 import eamv.dmu17he.lancrewapp.model.Hall;
-import eamv.dmu17he.lancrewapp.model.Space;
-import eamv.dmu17he.lancrewapp.model.WakeUp;
 
 public class CreateHallActivity extends AppCompatActivity {
     private MobileServiceClient mClient;
