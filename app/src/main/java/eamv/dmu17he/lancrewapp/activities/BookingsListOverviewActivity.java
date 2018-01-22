@@ -53,8 +53,6 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
     private AzureServiceAdapter mAzureAdapter;
     private List<BookingListViewItem> results;
     private ListView listViewBooking;
-    AsyncTask<Void, Void, Void> task;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +67,6 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
     }
 
     private void createTable() {
-        final Activity mActivity = this;
         try {
             initLocalStore().get();
             listViewBooking = (ListView) findViewById(R.id.bookingslistoverview);
@@ -85,13 +82,12 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         final Activity mActivity = this;
 
         // <-- Just to suppress warning
-                task = new AsyncTask<Void, Void, Void>(){
+                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
 
                 try {
                     results = refreshBookingListView();
-
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -111,8 +107,7 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
                 return null;
             }
         };
-        runAsyncTask(task);
-
+        runAsyncTask(task); 
     }
 
     private List<BookingListViewItem> refreshBookingListView() throws InterruptedException, ExecutionException, MobileServiceException {
@@ -238,98 +233,28 @@ public class BookingsListOverviewActivity extends AppCompatActivity {
         mWakeUpTable = mClient.getTable(WakeUp.class);
     }
 
-    public void updatePoke(View view, String wakeUpID, Context mContext, Button poke, BookingListViewItem currentItem) {
+    public void updatePoke(View view, final String wakeUpID, Context mContext, Button poke, BookingListViewItem currentItem) {
 
         final int x = (1 +(Integer.parseInt(poke.getText().toString())));
         poke.setText("" + (1 +(Integer.parseInt(poke.getText().toString()))));
-        Log.d("beef", wakeUpID);
 
-        //currentItem.setPoke(x);
-                updatePokeInWakeupTable(x, wakeUpID, currentItem);
-
-
-
-
-    }
-
-    private void updatePokeInWakeupTable(final int pokeCounter,final String wakeUpID, final BookingListViewItem currentItem) {
-        final Activity mActivity = this;
-
-
-
-
-
-        task = new AsyncTask<Void, Void, Void>() {
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
                     List<WakeUp> wakeUpList = mWakeUpTable.where().field("id").eq(wakeUpID).execute().get();
                     if(wakeUpList.size()>0) {
-                        Log.d("ey", "doInBackground: ");
                         final WakeUp wakeup = wakeUpList.get(0);
-                        wakeup.setPokeCounter(pokeCounter);
+                        wakeup.setPokeCounter(x);
                         final WakeUp entity = mWakeUpTable.update(wakeup).get();
-
-
-                        BookingsListOverviewActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                int x =mBookingAdapter.getPosition(currentItem);
-                                int y = results.indexOf(currentItem);
-                                results.remove(y);
-
-
-
-                                //mBookingAdapter.remove(currentItem);
-                                currentItem.setPoke(entity.getPokeCounter());
-                               
-
-                               // results.add(y,currentItem);
-                                Log.d("hey", "wee");
-
-
-                                mBookingAdapter.notifyDataSetChanged();
-
-                            }
-                        });
-
-
                     }
-
-
-
                 } catch (InterruptedException | ExecutionException  e) {
                     e.printStackTrace();
                 }
-
                 return null;
             }
         };
         task.execute();
-
-
-
     }
 
-
-
-    private void updatePokeInWakeupTabl(final WakeUp wakeUp) {
-        final Activity mActivity = this;
-
-        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> task = runAsyncTask(new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-
-                mWakeUpTable.update(wakeUp);
-
-
-
-
-                return null;
-            }
-        });
-        task.execute();
-
-
-    }
 }
