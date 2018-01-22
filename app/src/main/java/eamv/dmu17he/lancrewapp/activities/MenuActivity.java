@@ -19,6 +19,11 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
 
+    public void goToWakeUpActivity(View view){
+        Intent intent = new Intent(this, WakeUpActivity.class);
+        startActivity(intent);
+    }
+
     public void goToScheduleActivity(View view){
         Intent intent = new Intent(this, ScheduleActivity.class);
         startActivity(intent);
