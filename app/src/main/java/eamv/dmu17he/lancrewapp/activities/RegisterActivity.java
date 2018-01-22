@@ -31,8 +31,6 @@ import eamv.dmu17he.lancrewapp.model.User;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final AppCompatActivity activity = RegisterActivity.this;
-
     private NestedScrollView nestedScrollView;
 
     private TextInputLayout textInputLayoutName;
@@ -54,16 +52,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private Spinner dropdown;
 
-    //private DAO dao;
-    private User user;
-
     private MobileServiceClient mClient;
     private MobileServiceTable<User> mTable;
     private ProgressBar mProgressBar;
     private AzureServiceAdapter mAzureAdapter;
-    List<User> mUserList;
-    private User currentUser;
-    private boolean nickOkay = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -72,9 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         initViews();
         initMobileService();
         initListeners();
-
     }
-
 
     private void initViews() {
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
@@ -101,33 +92,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mProgressBar = (ProgressBar) findViewById(R.id.registerProgressBar);
         mProgressBar.setVisibility(ProgressBar.GONE);
 
-        //get the spinner from the xml.
-        dropdown = (Spinner) findViewById(R.id.spinner1);
-        //create a list of items for the spinner.
-        String[] items = new String[]{"Crewcare", "Køkken", "Support", "IT", "Security"};
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        //set the spinners adapter to the previously created one.
-        dropdown.setAdapter(adapter);
 
+        dropdown = (Spinner) findViewById(R.id.spinner1);
+        String[] items = new String[]{"Crewcare", "Køkken", "Support", "IT", "Security"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
     }
 
     private void initListeners(){
         appCompatButtonRegister.setOnClickListener(this);
-//        appCompatTextViewLoginLink.setOnClickListener(this);
     }
-
-
 
     @Override
     public void onClick(View v){
-        Log.d("FIND MIG", textInputEditTextUsername.getText().toString());
-
         isUsernameTaken();
-
     }
 
+    public void goToLoginActivity(View view) {
+        Intent intent = new Intent((getApplicationContext()), LoginActivity.class);
+        startActivity(intent);
+    }
 
     public void isUsernameTaken(){
         final Activity mActivity = this;
@@ -151,22 +135,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             }
                         });
                     } catch (Exception e) {
+                        ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
                     }
                     return null;
                 }
 
 
             };
-
             task.execute();
 
         } else {
-            ToDialogError.getInstance().createAndShowDialog(getString(R.string.error_message_username), "Username is empty", mActivity);
+            ToDialogError.getInstance().createAndShowDialog(getString(R.string.error_message_username), "Username is empty", this);
         }
     }
 
     private void postDataToAzure(){
-
         @SuppressLint("StaticFieldLeak")
         AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
@@ -212,7 +195,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         textInputEdittextPassword.setText(null);
         textInputEditTextConfirmPassword.setText(null);
     }
-
 
     private void initMobileService() {
         mAzureAdapter = AzureServiceAdapter.getInstance();
