@@ -52,9 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         initButtonAndProgressBar();
         initMobileService();
-
         createTable();
-
     }
 
     private void createTable() {
@@ -70,39 +68,6 @@ public class ProfileActivity extends AppCompatActivity {
         } catch (InterruptedException | ExecutionException | MobileServiceLocalStoreException e) {
             ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", this);
         }
-    }
-
-    public void addItem(View view) {
-        if (mClient == null) {
-            return;
-        }
-
-        final Activity mActivity = this;
-
-        // Insert the new item
-        @SuppressLint("StaticFieldLeak") //Just to suppress warning
-                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                        }
-                    });
-                } catch (final Exception e) {
-                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        };
-        runAsyncTask(task);
-    }
-
-    public User addItemInTable(User item) throws ExecutionException, InterruptedException {
-        User entity = mTable.insert(item).get();
-        return entity;
     }
 
     private void refreshItemsFromTable() {
@@ -134,7 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         };
 
-        runAsyncTask(task);
+        task.execute();
     }
 
     private void refreshItemsFromScheduleTable() {
@@ -166,7 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         };
 
-        runAsyncTask(task);
+        task.execute();
     }
 
     public void refreshItems(View view){
@@ -176,12 +141,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     private List<User> refreshItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
         return mTable.where().field("username").eq(GlobalUserSingleton.getGlobals(this).theCurrentUser.getUsername()).execute().get();
-        //return mTable.execute().get();
     }
 
     private List<Schedule> refreshScheduleItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
         return mScheduleTable.where().field("nickName").eq(GlobalUserSingleton.getGlobals(this).theCurrentUser.getUsername()).execute().get();
-        //return mScheduleTable.execute().get();
     }
 
     private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
@@ -199,28 +162,27 @@ public class ProfileActivity extends AppCompatActivity {
 
                     SQLiteLocalStore localStore = new SQLiteLocalStore(mClient.getContext(), "OfflineStore", null, 1);
 
-                    Map<String, ColumnDataType> tableDefinition = new HashMap<String, ColumnDataType>();
-                    tableDefinition.put("id", ColumnDataType.String);
-                    tableDefinition.put("name", ColumnDataType.String);
-                    tableDefinition.put("userName", ColumnDataType.String);
-                    tableDefinition.put("password", ColumnDataType.String);
-                    tableDefinition.put("phoneNumber", ColumnDataType.Integer);
-                    tableDefinition.put("nickName", ColumnDataType.String);
-                    tableDefinition.put("isAdmin", ColumnDataType.Boolean);
+                    Map<String, ColumnDataType> userTableDefinition = new HashMap<String, ColumnDataType>();
+                    userTableDefinition.put("id", ColumnDataType.String);
+                    userTableDefinition.put("name", ColumnDataType.String);
+                    userTableDefinition.put("userName", ColumnDataType.String);
+                    userTableDefinition.put("password", ColumnDataType.String);
+                    userTableDefinition.put("phoneNumber", ColumnDataType.Integer);
+                    userTableDefinition.put("nickName", ColumnDataType.String);
+                    userTableDefinition.put("isAdmin", ColumnDataType.Boolean);
 
-                    Map<String, ColumnDataType> ScheduletableDefinition = new HashMap<String, ColumnDataType>();
-                    tableDefinition.put("id", ColumnDataType.String);
-                    tableDefinition.put("startTime", ColumnDataType.String);
-                    tableDefinition.put("endTime", ColumnDataType.String);
-                    tableDefinition.put("date", ColumnDataType.String);
-                    tableDefinition.put("title", ColumnDataType.String);
-                    tableDefinition.put("nickName", ColumnDataType.String);
-                    tableDefinition.put("gaName", ColumnDataType.String);
+                    Map<String, ColumnDataType> scheduleTableDefinition = new HashMap<String, ColumnDataType>();
+                    scheduleTableDefinition.put("id", ColumnDataType.String);
+                    scheduleTableDefinition.put("startTime", ColumnDataType.String);
+                    scheduleTableDefinition.put("endTime", ColumnDataType.String);
+                    scheduleTableDefinition.put("date", ColumnDataType.String);
+                    scheduleTableDefinition.put("title", ColumnDataType.String);
+                    scheduleTableDefinition.put("nickName", ColumnDataType.String);
+                    scheduleTableDefinition.put("gaName", ColumnDataType.String);
 
-                    localStore.defineTable("User", tableDefinition);
+                    localStore.defineTable("User", userTableDefinition);
 
-                    localStore.defineTable("Schedule", ScheduletableDefinition);
-
+                    localStore.defineTable("Schedule", scheduleTableDefinition);
 
                     SimpleSyncHandler handler = new SimpleSyncHandler();
 
@@ -234,15 +196,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         };
 
-        return runAsyncTask(task);
-    }
-
-    public AsyncTask<Void, Void, Void> runAsyncTask(AsyncTask<Void, Void, Void> task) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            return task.execute();
-        }
+        return task.execute();
     }
 
     private void initButtonAndProgressBar() {

@@ -34,7 +34,6 @@ import eamv.dmu17he.lancrewapp.helper.GlobalUserSingleton;
 
 public class ContactsActivity extends AppCompatActivity {
 
-    private Button refresh;
     private MobileServiceClient mClient;
     private MobileServiceTable<User> mTable;
     private ProgressBar mProgressBar;
@@ -64,38 +63,6 @@ public class ContactsActivity extends AppCompatActivity {
         }
     }
 
-    public void addItem(View view) {
-        if (mClient == null) {
-            return;
-        }
-        final Activity mActivity = this;
-
-        // Insert the new item
-        @SuppressLint("StaticFieldLeak") //Just to suppress warning
-                AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                        }
-                    });
-                } catch (final Exception e) {
-                    ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        };
-        runAsyncTask(task);
-    }
-
-    public User addItemInTable(User item) throws ExecutionException, InterruptedException {
-        User entity = mTable.insert(item).get();
-        return entity;
-    }
-
     private void refreshItemsFromTable() {
         final Activity mActivity = this;
 
@@ -103,15 +70,12 @@ public class ContactsActivity extends AppCompatActivity {
                 AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
-
                 try {
                     final List<User> results = refreshItemsFromMobileServiceTable();
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mSickAdapter.clear();
-
                             for (User item : results) {
                                 mSickAdapter.add(item);
                             }
@@ -120,17 +84,14 @@ public class ContactsActivity extends AppCompatActivity {
                 } catch (final Exception e){
                     ToDialogError.getInstance().createAndShowDialogFromTask(e, "Error", mActivity);
                 }
-
                 return null;
             }
         };
-
         runAsyncTask(task);
     }
 
     private List<User> refreshItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
         return mTable.where().field("isAdmin").eq(true).and().field("crew").eq(GlobalUserSingleton.getGlobals(this).theCurrentUser.getCrew()).execute().get();
-       // return mTable.where().field("isAdmin").eq(true).execute().get();
     }
 
     private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
@@ -186,7 +147,6 @@ public class ContactsActivity extends AppCompatActivity {
     private void initButtonAndProgressBar() {
         mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
         mProgressBar.setVisibility(ProgressBar.GONE);
-        //refresh = (Button) findViewById(R.id.button2);
     }
 
     private void initMobileService() {
