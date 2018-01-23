@@ -81,6 +81,7 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
         displayrow = findViewById(R.id.displayrow);
         displaycolumn = findViewById(R.id.displaycolumn);
         dataList();
+        setListener();
 
     }
     private void dataList() {
@@ -134,7 +135,8 @@ public class DeleteWakeUpActivity extends AppCompatActivity {
         }
         adapter = new ArrayAdapter<WakeUp>(mContext, android.R.layout.simple_spinner_dropdown_item, wakeUpTimes);
         spinner.setAdapter(adapter);
-        setListener();}
+
+    }
 
 
 
