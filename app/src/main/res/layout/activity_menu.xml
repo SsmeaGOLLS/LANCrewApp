@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/menu_background"
     tools:context="eamv.dmu17he.lancrewapp.activities.MenuActivity">
 
     <TextView
@@ -31,7 +30,6 @@
         android:text="@string/wakeup"
         android:textSize="26dp"
         android:fontFamily="@font/kabrio"
-        android:background="@drawable/button_rounded_corners"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -46,7 +44,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="170dp"
         android:layout_marginTop="120dp"
-        android:background="@drawable/button_rounded_corners"
         android:fontFamily="@font/kabrio"
         android:onClick="goToScheduleActivity"
         android:text="@string/schedule"
@@ -64,7 +61,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="170dp"
         android:layout_marginTop="280dp"
-        android:background="@drawable/button_rounded_corners"
         android:fontFamily="@font/kabrio"
         android:onClick="goToContactsActivity"
         android:text="@string/contact"
@@ -82,7 +78,6 @@
         android:layout_marginEnd="170dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="280dp"
-        android:background="@drawable/button_rounded_corners"
         android:fontFamily="@font/kabrio"
         android:onClick="goToMessagesActivity"
         android:text="@string/message"
@@ -99,7 +94,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_rounded_corners"
         android:fontFamily="@font/kabrio"
         android:onClick="goToProfileActivity"
         android:text="@string/Profileheadline"
